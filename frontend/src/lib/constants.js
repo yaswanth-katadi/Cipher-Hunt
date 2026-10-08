@@ -2,8 +2,7 @@ export const SESSION_TOKEN_KEY = "cipherhunt_session_token"
 export const SESSION_ID_KEY = "cipherhunt_session_id"
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  "http://127.0.0.1:8000/api"
+  "https://cipher-hunt-backend-production.up.railway.app/api"
 
 export const ROUND_STATUS = {
   LOCKED: "LOCKED",

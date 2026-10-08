@@ -4,6 +4,7 @@ import {
   useState,
 } from "react"
 
+
 import {
   useNavigate,
 } from "react-router-dom"
@@ -147,6 +148,7 @@ function Round1() {
           startResponse.data
 
       } catch (startError) {
+
         // ---------------------------------------------------
         // If the game is already started, retrieve the
         // authoritative current session state.
@@ -252,6 +254,7 @@ function Round1() {
       )
 
     } catch (err) {
+
       console.error(
         "Round 1 initialization failed:",
         err.response?.data || err
@@ -263,7 +266,9 @@ function Round1() {
       )
 
     } finally {
+
       setLoading(false)
+
     }
   }
 
@@ -307,6 +312,7 @@ function Round1() {
   // ---------------------------------------------------------
 
   function handleNodeClick(node) {
+
     if (stage !== 1) {
       return
     }
@@ -319,6 +325,7 @@ function Round1() {
 
     setSelectedNodes(
       (current) => {
+
         // -----------------------------------------------
         // Clicking an already selected node removes it.
         // -----------------------------------------------
@@ -326,9 +333,11 @@ function Round1() {
         if (
           current.includes(node)
         ) {
+
           return current.filter(
             (item) => item !== node
           )
+
         }
 
         // -----------------------------------------------
@@ -338,13 +347,16 @@ function Round1() {
         if (
           current.length >= 4
         ) {
+
           return current
+
         }
 
         return [
           ...current,
           node,
         ]
+
       }
     )
   }
@@ -355,6 +367,7 @@ function Round1() {
   // ---------------------------------------------------------
 
   async function submitStage1() {
+
     if (
       selectedNodes.length !== 4
     ) {
@@ -369,6 +382,7 @@ function Round1() {
     setFeedback(null)
 
     try {
+
       const response = await api.post(
         "/session/round-1/stage-1/",
         {
@@ -380,11 +394,13 @@ function Round1() {
       const data =
         response.data
 
+
       // -----------------------------------------------
       // Backend returns ONLY aggregate feedback.
       // -----------------------------------------------
 
       setFeedback(data)
+
 
       // -----------------------------------------------
       // Keep authoritative attempt count.
@@ -400,20 +416,24 @@ function Round1() {
         })
       )
 
+
       // -----------------------------------------------
       // Stage 1 solved.
       // Move to Stage 2.
       // -----------------------------------------------
 
       if (data.solved) {
+
         setOrder(
           [...selectedNodes]
         )
 
         setStage(2)
+
       }
 
     } catch (err) {
+
       setFeedback({
         solved: false,
 
@@ -423,7 +443,9 @@ function Round1() {
       })
 
     } finally {
+
       setSubmitting(false)
+
     }
   }
 
@@ -433,12 +455,14 @@ function Round1() {
   // ---------------------------------------------------------
 
   function moveOrderLeft(index) {
+
     if (index <= 0) {
       return
     }
 
     setOrder(
       (current) => {
+
         const next = [
           ...current,
         ]
@@ -452,12 +476,14 @@ function Round1() {
         ]
 
         return next
+
       }
     )
   }
 
 
   function moveOrderRight(index) {
+
     if (
       index >= order.length - 1
     ) {
@@ -466,6 +492,7 @@ function Round1() {
 
     setOrder(
       (current) => {
+
         const next = [
           ...current,
         ]
@@ -479,6 +506,7 @@ function Round1() {
         ]
 
         return next
+
       }
     )
   }
@@ -489,6 +517,7 @@ function Round1() {
   // ---------------------------------------------------------
 
   async function submitStage2() {
+
     if (
       order.length !== 4
     ) {
@@ -503,6 +532,7 @@ function Round1() {
     setFeedback(null)
 
     try {
+
       const response = await api.post(
         "/session/round-1/stage-2/",
         {
@@ -516,17 +546,21 @@ function Round1() {
 
       setFeedback(data)
 
+
       // -----------------------------------------------
       // Correct order -> Round 2
       // -----------------------------------------------
 
       if (data.solved) {
+
         navigate("/round-2", {
           replace: true,
         })
+
       }
 
     } catch (err) {
+
       setFeedback({
         solved: false,
 
@@ -536,7 +570,9 @@ function Round1() {
       })
 
     } finally {
+
       setSubmitting(false)
+
     }
   }
 
@@ -546,11 +582,13 @@ function Round1() {
   // ---------------------------------------------------------
 
   if (loading) {
+
     return (
       <LoadingScreen
         message="Loading Round 01 evidence..."
       />
     )
+
   }
 
 
@@ -559,8 +597,10 @@ function Round1() {
   // ---------------------------------------------------------
 
   if (error) {
+
     return (
       <main className="min-h-screen bg-[#11100e] px-6 py-16 text-[#f3eee3]">
+
         <div className="mx-auto max-w-xl border border-[#8f2028] bg-[#171512] p-8">
 
           <p className="text-xs uppercase tracking-[0.2em] text-[#8f2028]">
@@ -584,8 +624,10 @@ function Round1() {
           </button>
 
         </div>
+
       </main>
     )
+
   }
 
 
@@ -594,13 +636,24 @@ function Round1() {
   // ---------------------------------------------------------
 
   return (
-    <main className="min-h-screen bg-[#11100e] px-5 py-8 text-[#f3eee3] md:px-8">
+    <main className="relative min-h-screen overflow-hidden px-5 py-8 text-[#f3eee3] md:px-8">
 
-      <div className="mx-auto max-w-7xl">
+      {/* ===================================================== */}
+      {/* FERROFLUID BACKGROUND                                  */}
+      {/* ===================================================== */}
 
-        {/* ------------------------------------------------ */}
-        {/* HEADER                                           */}
-        {/* ------------------------------------------------ */}
+  
+
+
+      {/* ===================================================== */}
+      {/* ALL PAGE CONTENT                                      */}
+      {/* ===================================================== */}
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+
+        {/* --------------------------------------------------- */}
+        {/* HEADER                                              */}
+        {/* --------------------------------------------------- */}
 
         <GameHeader
           round={1}
@@ -609,30 +662,30 @@ function Round1() {
         />
 
 
-        {/* ------------------------------------------------ */}
-        {/* MAIN CONTENT                                     */}
-        {/* ------------------------------------------------ */}
+        {/* --------------------------------------------------- */}
+        {/* MAIN CONTENT                                        */}
+        {/* --------------------------------------------------- */}
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
 
-          {/* ============================================== */}
-          {/* LEFT COLUMN                                    */}
-          {/* ============================================== */}
+          {/* ================================================= */}
+          {/* LEFT COLUMN                                       */}
+          {/* ================================================= */}
 
           <div className="space-y-6">
 
-            {/* -------------------------------------------- */}
-            {/* EVIDENCE                                     */}
-            {/* -------------------------------------------- */}
+            {/* ----------------------------------------------- */}
+            {/* EVIDENCE                                        */}
+            {/* ----------------------------------------------- */}
 
             <CluePanel
               clues={clues}
             />
 
 
-            {/* -------------------------------------------- */}
-            {/* ATTEMPTS                                     */}
-            {/* -------------------------------------------- */}
+            {/* ----------------------------------------------- */}
+            {/* ATTEMPTS                                        */}
+            {/* ----------------------------------------------- */}
 
             <div className="border border-[#3a3530] bg-[#171512] p-5">
 
@@ -649,15 +702,15 @@ function Round1() {
           </div>
 
 
-          {/* ============================================== */}
-          {/* RIGHT COLUMN                                   */}
-          {/* ============================================== */}
+          {/* ================================================= */}
+          {/* RIGHT COLUMN                                      */}
+          {/* ================================================= */}
 
           <div className="space-y-6">
 
-            {/* ============================================ */}
-            {/* STAGE 1                                      */}
-            {/* ============================================ */}
+            {/* =============================================== */}
+            {/* STAGE 1                                         */}
+            {/* =============================================== */}
 
             {stage === 1 ? (
 
@@ -689,9 +742,9 @@ function Round1() {
                 </div>
 
 
-                {/* ---------------------------------------- */}
-                {/* NODE GRID                                */}
-                {/* ---------------------------------------- */}
+                {/* ------------------------------------------- */}
+                {/* NODE GRID                                   */}
+                {/* ------------------------------------------- */}
 
                 <PuzzleGrid
                   nodes={nodes}
@@ -702,6 +755,7 @@ function Round1() {
                    * We also pass onNodeClick for compatibility
                    * with the older component version.
                    */
+
                   onNodeSelect={handleNodeClick}
                   onNodeClick={handleNodeClick}
 
@@ -709,19 +763,21 @@ function Round1() {
                 />
 
 
-                {/* ---------------------------------------- */}
-                {/* RESET                                    */}
-                {/* ---------------------------------------- */}
+                {/* ------------------------------------------- */}
+                {/* RESET                                       */}
+                {/* ------------------------------------------- */}
 
                 <button
                   type="button"
                   onClick={() => {
+
                     if (submitting) {
                       return
                     }
 
                     setSelectedNodes([])
                     setFeedback(null)
+
                   }}
                   disabled={
                     submitting ||
@@ -733,9 +789,9 @@ function Round1() {
                 </button>
 
 
-                {/* ---------------------------------------- */}
-                {/* SUBMIT                                   */}
-                {/* ---------------------------------------- */}
+                {/* ------------------------------------------- */}
+                {/* SUBMIT                                      */}
+                {/* ------------------------------------------- */}
 
                 <button
                   type="button"
@@ -755,9 +811,9 @@ function Round1() {
 
             ) : (
 
-              /* ========================================== */
-              /* STAGE 2                                    */
-              /* ========================================== */
+              /* ============================================= */
+              /* STAGE 2                                       */
+              /* ============================================= */
 
               <OrderPanel
                 order={order}
@@ -778,9 +834,9 @@ function Round1() {
             )}
 
 
-            {/* -------------------------------------------- */}
-            {/* FEEDBACK                                     */}
-            {/* -------------------------------------------- */}
+            {/* ----------------------------------------------- */}
+            {/* FEEDBACK                                        */}
+            {/* ----------------------------------------------- */}
 
             <FeedbackPanel
               feedback={feedback}

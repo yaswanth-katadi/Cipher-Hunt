@@ -1,7 +1,7 @@
 import {
   useState,
 } from "react"
-<FerrofluidBackground />
+import FerrofluidBackground from "../components/FerrofluidBackground"
 import {
   motion,
   AnimatePresence,

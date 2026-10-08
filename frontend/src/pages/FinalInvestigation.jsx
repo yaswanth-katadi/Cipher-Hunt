@@ -3,7 +3,7 @@ import {
   useMemo,
   useState,
 } from "react"
-import FerrofluidBackground from "../components/FerrofluidBackground"
+import FerroFluidBackground from "../components/FerroFluidBackground"
 import {
   useNavigate,
 } from "react-router-dom"
@@ -237,7 +237,7 @@ function FinalInvestigation() {
 
   return (
     <main className="min-h-screen bg-[#0b0b0a] px-5 py-10 text-[#f4efe5] md:px-8">
-      <FerrofluidBackground />
+      <FerroFluidBackground />
       <div className="mx-auto max-w-7xl">
 
         {/* ================================================= */}

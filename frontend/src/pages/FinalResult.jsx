@@ -2,7 +2,7 @@ import {
   useEffect,
   useState,
 } from "react"
-import FerrofluidBackground from "../components/FerrofluidBackground"
+import FerroFluidBackground from "../components/FerroFluidBackground"
 import {
   useNavigate,
 } from "react-router-dom"
@@ -121,7 +121,7 @@ function FinalResult() {
   return (
     <main className="min-h-screen bg-[#11100e] px-6 py-12 text-[#f3eee3]">
 
-      <FerrofluidBackground />
+      <FerroFluidBackground />
       <div className="mx-auto max-w-3xl">
 
         <SectionLabel>

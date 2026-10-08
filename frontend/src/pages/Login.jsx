@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import FerrofluidBackground from "../components/FerrofluidBackground"
+import FerroFluidBackground from "../components/FerroFluidBackground"
 import GoogleAuthButton from "../components/auth/GoogleAuthButton"
 import SectionLabel from "../components/common/SectionLabel"
 import CaseStamp from "../components/common/CaseStamp"
@@ -40,7 +40,7 @@ function Login() {
   return (
     <main className="relative min-h-screen overflow-hidden text-[#f4efe5]">
       {/* Animated FerroFluid Background */}
-      <FerrofluidBackground />
+      <FerroFluidBackground />
 
       {/* Login Content */}
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-center justify-center px-5 py-10 sm:px-8">

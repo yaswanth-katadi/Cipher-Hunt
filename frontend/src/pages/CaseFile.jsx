@@ -1,7 +1,7 @@
 import {
   useNavigate,
 } from "react-router-dom"
-import FerrofluidBackground from "../components/FerrofluidBackground"
+import FerroFluidBackground from "../components/FerroFluidBackground"
 import SectionLabel from "../components/common/SectionLabel"
 import CaseStamp from "../components/common/CaseStamp"
 import PrimaryButton from "../components/common/PrimaryButton"
@@ -21,7 +21,7 @@ function CaseFile() {
 
   return (
     <main className="min-h-screen bg-[#11100e] px-6 py-12 text-[#f3eee3]">
-      <FerrofluidBackground />
+      <FerroFluidBackground />
       <div className="mx-auto max-w-5xl">
 
         <div className="flex flex-col justify-between gap-5 border-b border-[#3a3530] pb-8 sm:flex-row sm:items-end">

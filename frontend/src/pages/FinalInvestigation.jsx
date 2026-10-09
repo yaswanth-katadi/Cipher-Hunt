@@ -375,7 +375,7 @@ function FinalInvestigation() {
           <button
             type="button"
             onClick={() =>
-              navigate("/result")
+              navigate("/leaderboard")
             }
             className="border border-[#e50914] bg-[#e50914] px-7 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition hover:bg-[#ff1a24]"
           >

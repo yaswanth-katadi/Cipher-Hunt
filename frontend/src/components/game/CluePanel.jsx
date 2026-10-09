@@ -29,7 +29,7 @@ function CluePanel({
               </EvidenceTag>
 
               <p className="mt-3 text-sm leading-6 text-[#b8b8c1]">
-                {clue.text}
+                {String(clue.text || "").replace(/recorded\s+recorded\s+time/gi, "recorded time")}
               </p>
             </article>
           )

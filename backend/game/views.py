@@ -1,4 +1,4 @@
-from django.db import transaction
+from django.db import IntegrityError, transaction
 from django.utils import timezone
 
 from rest_framework import status
@@ -33,8 +33,6 @@ from .puzzle_engine.generator import generate_puzzle
 
 import secrets
 
-from django.db import IntegrityError, transaction
-from django.utils import timezone
 from .google_auth import verify_google_credential
 
 
@@ -92,6 +90,86 @@ def create_leaderboard_entry(game_session):
     )
 
     return entry
+
+
+def session_status_payload(game_session):
+    """Return the session status plus server-authoritative round state.
+
+    The frontend needs round timestamps, elapsed times, stage progress, and
+    the nodes discovered in Stage 1 to recover safely after refresh/login.
+    These values are reconstructed from persisted RoundState and Attempt rows;
+    puzzle secret data is never exposed here.
+    """
+    data = dict(GameSessionStatusSerializer(game_session).data)
+    discovered_by_round = {}
+
+    for round_number in (1, 2):
+        round_state = RoundState.objects.filter(
+            game_session=game_session,
+            round_number=round_number,
+        ).first()
+
+        prefix = f"round_{round_number}"
+        if round_state is None:
+            data[f"{prefix}_started_at"] = None
+            data[f"{prefix}_elapsed_ms"] = 0
+            data[f"{prefix}_selected_nodes"] = []
+            data[f"{prefix}_selected_order"] = []
+            data[f"{prefix}_stage"] = None
+            continue
+
+        data[f"{prefix}_status"] = round_state.status
+        data[f"{prefix}_attempts"] = round_state.attempts_count
+        data[f"{prefix}_started_at"] = round_state.started_at
+        data[f"{prefix}_elapsed_ms"] = round_state.elapsed_ms or 0
+
+        solved_stage_1 = Attempt.objects.filter(
+            round_state=round_state,
+            stage=Attempt.Stage.STAGE_1,
+            correctly_placed=4,
+        ).order_by("-submitted_at").first()
+
+        selected_nodes = (
+            list(solved_stage_1.selected_nodes)
+            if solved_stage_1 is not None
+            else []
+        )
+        data[f"{prefix}_selected_nodes"] = selected_nodes
+        discovered_by_round[round_number] = selected_nodes
+
+        if round_state.status == RoundState.Status.SOLVED:
+            stage = "completed"
+        elif round_state.status == RoundState.Status.ACTIVE:
+            stage = "stage_2" if solved_stage_1 is not None else "stage_1"
+        else:
+            stage = None
+        data[f"{prefix}_stage"] = stage
+
+        latest_stage_2 = Attempt.objects.filter(
+            round_state=round_state,
+            stage=Attempt.Stage.STAGE_2,
+        ).order_by("-submitted_at").first()
+        if latest_stage_2 is not None and latest_stage_2.selected_order:
+            data[f"{prefix}_selected_order"] = list(latest_stage_2.selected_order)
+        else:
+            data[f"{prefix}_selected_order"] = selected_nodes
+
+    # A client can use this hint after Google login to send a completed
+    # participant straight to the leaderboard rather than restarting a round.
+    if game_session.status in (GameSession.Status.FINAL, GameSession.Status.COMPLETED):
+        data["resume_path"] = "/leaderboard"
+        data["is_completed"] = True
+    elif game_session.status == GameSession.Status.ROUND_2:
+        data["resume_path"] = "/round-2"
+        data["is_completed"] = False
+    elif game_session.status == GameSession.Status.ROUND_1:
+        data["resume_path"] = "/round-1"
+        data["is_completed"] = False
+    else:
+        data["resume_path"] = "/briefing"
+        data["is_completed"] = False
+
+    return data
 
 
 # ============================================================
@@ -233,15 +311,24 @@ class GoogleAuthView(APIView):
                     secret_data=puzzle["secret_data"],
                 )
 
+            # Repair a missing leaderboard row if an already-completed
+            # session is logging in again (for example after an old deploy).
+            if game_session.status in (GameSession.Status.FINAL, GameSession.Status.COMPLETED):
+                round_states = list(
+                    RoundState.objects.filter(game_session=game_session)
+                )
+                if len(round_states) == 2 and all(
+                    item.status == RoundState.Status.SOLVED for item in round_states
+                ):
+                    create_leaderboard_entry(game_session)
+
         return Response(
             {
                 "registration": RegistrationSerializer(
                     registration
                 ).data,
 
-                "session": GameSessionStatusSerializer(
-                    game_session
-                ).data,
+                "session": session_status_payload(game_session),
 
                 "is_new_registration": is_new_registration,
             },
@@ -343,9 +430,7 @@ class RegistrationCreateView(APIView):
                     registration
                 ).data,
 
-                "session": GameSessionStatusSerializer(
-                    game_session
-                ).data,
+                "session": session_status_payload(game_session),
             },
             status=status.HTTP_201_CREATED,
         )
@@ -371,12 +456,8 @@ class SessionStatusView(APIView):
                 status=status.HTTP_403_FORBIDDEN,
             )
 
-        serializer = GameSessionStatusSerializer(
-            game_session
-        )
-
         return Response(
-            serializer.data,
+            session_status_payload(game_session),
             status=status.HTTP_200_OK,
         )
 
@@ -430,95 +511,75 @@ class StartGameView(APIView):
 
         with transaction.atomic():
             game_session = (
-                GameSession.objects
-                .select_for_update()
+                GameSession.objects.select_for_update()
                 .get(id=authenticated_session.id)
             )
-
             round_1 = (
-                RoundState.objects
-                .select_for_update()
-                .get(
+                RoundState.objects.select_for_update().get(
                     game_session=game_session,
                     round_number=RoundState.RoundNumber.ROUND_1,
                 )
             )
 
-            # -------------------------------------------------
-            # CASE 1:
-            # Game has never started -> start Round 1
-            # -------------------------------------------------
+            # Start Round 1 exactly once. Repeated requests caused by refresh
+            # or navigation must not reset its timestamp or elapsed time.
             if game_session.status == GameSession.Status.NOT_STARTED:
                 if round_1.status != RoundState.Status.LOCKED:
                     return Response(
-                        {
-                            "detail": "Round 1 is not in a startable state."
-                        },
+                        {"detail": "Round 1 is not in a startable state."},
                         status=status.HTTP_409_CONFLICT,
                     )
 
                 now = timezone.now()
-
                 round_1.status = RoundState.Status.ACTIVE
                 round_1.started_at = now
                 round_1.solved_at = None
                 round_1.elapsed_ms = None
-
-                round_1.save(
-                    update_fields=[
-                        "status",
-                        "started_at",
-                        "solved_at",
-                        "elapsed_ms",
-                    ]
-                )
+                round_1.save(update_fields=[
+                    "status", "started_at", "solved_at", "elapsed_ms"
+                ])
 
                 game_session.status = GameSession.Status.ROUND_1
+                game_session.save(update_fields=["status", "updated_at"])
 
-                game_session.save(
-                    update_fields=[
-                        "status",
-                        "updated_at",
-                    ]
-                )
+            elif game_session.status == GameSession.Status.ROUND_1:
+                # Existing Round 1 session: leave the original start time alone.
+                if round_1.status != RoundState.Status.ACTIVE:
+                    return Response(
+                        {"detail": "Round 1 session state is inconsistent."},
+                        status=status.HTTP_409_CONFLICT,
+                    )
 
-            # -------------------------------------------------
-            # CASE 2:
-            # Frontend called start again.
-            # Round 1 is already active.
-            #
-            # This is NOT an error.
-            # Return the existing active state.
-            # -------------------------------------------------
-            elif (
-                game_session.status == GameSession.Status.ROUND_1
-                and round_1.status == RoundState.Status.ACTIVE
+            elif game_session.status in (
+                GameSession.Status.ROUND_2,
+                GameSession.Status.FINAL,
+                GameSession.Status.COMPLETED,
             ):
+                # This endpoint is also called by old clients on refresh.
+                # Return current progress instead of treating it as a new game.
                 pass
-
-            # -------------------------------------------------
-            # CASE 3:
-            # Session is in some other state.
-            # -------------------------------------------------
             else:
                 return Response(
-                    {
-                        "detail": (
-                            "Round 1 cannot be started from the "
-                            "current game state."
-                        )
-                    },
+                    {"detail": "Game session has an unsupported state."},
                     status=status.HTTP_409_CONFLICT,
                 )
 
+            active_round_number = (
+                1 if game_session.status == GameSession.Status.ROUND_1
+                else 2 if game_session.status == GameSession.Status.ROUND_2
+                else None
+            )
+            active_round = None
+            if active_round_number is not None:
+                active_round = RoundState.objects.filter(
+                    game_session=game_session,
+                    round_number=active_round_number,
+                ).first()
+
         return Response(
             {
-                "session": GameSessionStatusSerializer(
-                    game_session
-                ).data,
-                "round": RoundStateSerializer(
-                    round_1
-                ).data,
+                "session": session_status_payload(game_session),
+                "round": RoundStateSerializer(active_round).data if active_round else None,
             },
             status=status.HTTP_200_OK,
         )
@@ -1420,7 +1481,10 @@ class FinalResultView(APIView):
         # Final result is available only after both rounds
         # have been successfully completed.
         # -----------------------------------------------------
-        if game_session.status != GameSession.Status.FINAL:
+        if game_session.status not in (
+            GameSession.Status.FINAL,
+            GameSession.Status.COMPLETED,
+        ):
             return Response(
                 {
                     "detail": (

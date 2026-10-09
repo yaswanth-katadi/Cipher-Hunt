@@ -46,7 +46,17 @@ function PublicRoute({ children }) {
   }
 
   if (session) {
-    return <Navigate to="/case" replace />
+    const status = String(session.status || session.game_status || "").toLowerCase()
+    const destination = session.resume_path || (
+      session.is_completed || ["final", "completed"].includes(status)
+        ? "/leaderboard"
+        : status === "round_2"
+          ? "/round-2"
+          : status === "round_1"
+            ? "/round-1"
+            : "/case"
+    )
+    return <Navigate to={destination} replace />
   }
 
   return children
@@ -180,34 +190,16 @@ function App() {
         }
       />
 
+{/* OLD RESULT URLS — REDIRECT TO LEADERBOARD */}
+<Route
+  path="/result"
+  element={<Navigate to="/leaderboard" replace />}
+/>
 
-      {/* ================================================== */}
-      {/* FINAL RESULT                                      */}
-      {/* ================================================== */}
-
-      <Route
-        path="/result"
-        element={
-          <ProtectedRoute>
-            <FinalResult />
-          </ProtectedRoute>
-        }
-      />
-
-
-      {/* ================================================== */}
-      {/* OLD FINAL RESULT URL                              */}
-      {/* ================================================== */}
-
-      <Route
-        path="/final-result"
-        element={
-          <ProtectedRoute>
-            <FinalResult />
-          </ProtectedRoute>
-        }
-      />
-
+<Route
+  path="/final-result"
+  element={<Navigate to="/leaderboard" replace />}
+/>
 
       {/* ================================================== */}
       {/* LEADERBOARD                                       */}

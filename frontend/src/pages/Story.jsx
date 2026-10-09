@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import FerrofluidBackground from "../components/FerrofluidBackground";
 const scenes = [
-  { number: "01", label: "THE WORKSHOP", title: "The workshop went quiet at 02:17.", text: "The lights were still on. The machines had stopped. But something was missing." },
-  { number: "02", label: "THE INCIDENT", title: "A component disappeared without a trace.", text: "The owner found an empty space where a critical component had been secured only minutes earlier." },
-  { number: "03", label: "THE EVIDENCE", title: "Someone wanted the trail to be difficult to follow.", text: "The available evidence contains fragments of a hidden coordinate. The information has been deliberately divided." },
-  { number: "04", label: "THE ASSIGNMENT", title: "Now the investigation is yours.", text: "Follow the patterns. Recover the coordinate. Find where the trail ends." },
+  { number: "01", label: "THE WORKSHOP", title: "The workshop went quiet at 02:16 ", text: "The lights were still on. The machines had stopped. But something was missing." },
+  { number: "02", label: "THE INCIDENT", title: "A component disappeared without a trace", text: "The owner found an empty space where a critical component had been secured only minutes earlier." },
+  { number: "03", label: "THE EVIDENCE", title: "Someone wanted the trail to be difficult to follow", text: "The available evidence contains fragments of a hidden coordinate. The information has been deliberately divided." },
+  { number: "04", label: "THE ASSIGNMENT", title: "Now the investigation is yours", text: "Follow the patterns. Recover the coordinate. Find where the trail ends." },
 ]
 
 function Story() {

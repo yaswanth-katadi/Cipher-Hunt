@@ -16,10 +16,8 @@ function Login() {
     }
     try {
       await loginWithGoogle(credentialResponse.credential)
-      // Do NOT navigate here — PublicRoute automatically redirects to /case
-      // once the session state is committed by loginWithGoogle. Calling
-      // navigate() here races against the React state update and lands back
-      // on "/" before session is visible to the router guard.
+      // PublicRoute redirects using the saved session status/resume_path:
+      // Round 1, Round 2, or leaderboard for completed sessions.
     } catch (err) {
       setError(
         err?.response?.data?.detail ||

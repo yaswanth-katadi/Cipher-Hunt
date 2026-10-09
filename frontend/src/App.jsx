@@ -1,4 +1,3 @@
-
 import { Navigate, Route, Routes } from "react-router-dom"
 
 import Login from "./pages/Login"
@@ -12,72 +11,8 @@ import Leaderboard from "./pages/Leaderboard"
 import Story from "./pages/Story"
 import NotFound from "./pages/NotFound"
 import Video from "./pages/Video"
-
 import { useAuth } from "./context/AuthContext"
 import LoadingScreen from "./components/common/LoadingScreen"
-
-
-// ============================================================
-// RESUME ROUTE
-// Redirect authenticated players based on saved game progress.
-// ============================================================
-
-function getResumePath(gameState) {
-  if (!gameState) {
-    return "/case"
-  }
-
-  const status = String(
-    gameState.status ??
-    gameState.game_status ??
-    gameState.state ??
-    ""
-  ).toLowerCase()
-
-  // Completed game: show leaderboard.
-  if (
-    ["completed", "complete", "finished", "final", "solved"].includes(status) ||
-    gameState.is_completed === true ||
-    gameState.completed === true
-  ) {
-    return "/leaderboard"
-  }
-
-  // Determine the current round from the saved backend state.
-  const round = Number(
-    gameState.current_round ??
-    gameState.round_number ??
-    gameState.round ??
-    0
-  )
-
-  if (
-    round >= 2 ||
-    ["round_2", "round2", "longitude", "round_2_active"].includes(status)
-  ) {
-    return "/round-2"
-  }
-
-  if (
-    ["round_1", "round1", "latitude", "round_1_active"].includes(status)
-  ) {
-    return "/round-1"
-  }
-
-  if (["briefing", "briefed"].includes(status)) {
-    return "/briefing"
-  }
-
-  if (["video"].includes(status)) {
-    return "/video"
-  }
-
-  if (["story"].includes(status)) {
-    return "/story"
-  }
-
-  return "/case"
-}
 
 
 // ============================================================
@@ -111,16 +46,17 @@ function PublicRoute({ children }) {
   }
 
   if (session) {
-    // AuthContext may expose saved game progress under one
-    // of these properties. Use the property your context provides.
-    const gameState =
-      session.game_session ??
-      session.gameState ??
-      session.game_state ??
-      session.progress ??
-      null
-
-    return <Navigate to={getResumePath(gameState)} replace />
+    const status = String(session.status || session.game_status || "").toLowerCase()
+    const destination = session.resume_path || (
+      session.is_completed || ["final", "completed"].includes(status)
+        ? "/leaderboard"
+        : status === "round_2"
+          ? "/round-2"
+          : status === "round_1"
+            ? "/round-1"
+            : "/case"
+    )
+    return <Navigate to={destination} replace />
   }
 
   return children
@@ -134,7 +70,11 @@ function PublicRoute({ children }) {
 function App() {
   return (
     <Routes>
-      {/* Public entry */}
+
+      {/* ================================================== */}
+      {/* PUBLIC ENTRY                                      */}
+      {/* ================================================== */}
+
       <Route
         path="/"
         element={
@@ -144,7 +84,11 @@ function App() {
         }
       />
 
-      {/* Story */}
+
+      {/* ================================================== */}
+      {/* STORY                                             */}
+      {/* ================================================== */}
+
       <Route
         path="/story"
         element={
@@ -154,7 +98,11 @@ function App() {
         }
       />
 
-      {/* Case file */}
+
+      {/* ================================================== */}
+      {/* CASE FILE                                         */}
+      {/* ================================================== */}
+
       <Route
         path="/case"
         element={
@@ -164,17 +112,18 @@ function App() {
         }
       />
 
-      {/* Video */}
-      <Route
-        path="/video"
-        element={
-          <ProtectedRoute>
-            <Video />
-          </ProtectedRoute>
-        }
-      />
+ <Route
+  path="/video"
+  element={
+    <ProtectedRoute>
+      <Video />
+    </ProtectedRoute>
+  }
+/>
+      {/* ================================================== */}
+      {/* BRIEFING                                          */}
+      {/* ================================================== */}
 
-      {/* Briefing */}
       <Route
         path="/briefing"
         element={
@@ -184,7 +133,11 @@ function App() {
         }
       />
 
-      {/* Round 1 */}
+
+      {/* ================================================== */}
+      {/* ROUND 1 — LATITUDE                                */}
+      {/* ================================================== */}
+
       <Route
         path="/round-1"
         element={
@@ -194,7 +147,11 @@ function App() {
         }
       />
 
-      {/* Round 2 */}
+
+      {/* ================================================== */}
+      {/* ROUND 2 — LONGITUDE                               */}
+      {/* ================================================== */}
+
       <Route
         path="/round-2"
         element={
@@ -204,7 +161,11 @@ function App() {
         }
       />
 
-      {/* Final investigation */}
+
+      {/* ================================================== */}
+      {/* FINAL INVESTIGATION                               */}
+      {/* ================================================== */}
+
       <Route
         path="/final"
         element={
@@ -214,35 +175,56 @@ function App() {
         }
       />
 
-      {/* Legacy URLs */}
+
+      {/* ================================================== */}
+      {/* OLD FINAL URL — KEEP FOR COMPATIBILITY             */}
+      {/* ================================================== */}
+
       <Route
         path="/final-investigation"
-        element={<Navigate to="/final" replace />}
+        element={
+          <Navigate
+            to="/final"
+            replace
+          />
+        }
       />
 
-      <Route
-        path="/result"
-        element={<Navigate to="/leaderboard" replace />}
-      />
+{/* OLD RESULT URLS — REDIRECT TO LEADERBOARD */}
+<Route
+  path="/result"
+  element={<Navigate to="/leaderboard" replace />}
+/>
 
-      <Route
-        path="/final-result"
-        element={<Navigate to="/leaderboard" replace />}
-      />
+<Route
+  path="/final-result"
+  element={<Navigate to="/leaderboard" replace />}
+/>
 
-      {/* Leaderboard */}
+      {/* ================================================== */}
+      {/* LEADERBOARD                                       */}
+      {/* ================================================== */}
+
       <Route
         path="/leaderboard"
-        element={<Leaderboard />}
+        element={
+          <Leaderboard />
+        }
       />
 
-      {/* Unknown route */}
+
+      {/* ================================================== */}
+      {/* UNKNOWN ROUTE                                     */}
+      {/* ================================================== */}
+
       <Route
         path="*"
         element={<NotFound />}
       />
+
     </Routes>
   )
 }
+
 
 export default App

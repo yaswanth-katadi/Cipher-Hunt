@@ -40,55 +40,14 @@ export function AuthProvider({
     setAuthError,
   ] = useState(null)
 
+  // Intentionally require Google login after a full page refresh.
+  // The backend associates the Google account with its existing GameSession,
+  // so login can resume the saved round without creating a new session.
   useEffect(() => {
-    async function restoreSession() {
-      const token =
-        getSessionToken()
-
-      const sessionId =
-        getSessionId()
-
-      if (!token || !sessionId) {
-        setLoading(false)
-        return
-      }
-
-      try {
-        const response =
-          await api.get(
-            `/session/${sessionId}/`
-          )
-
-        setSession(
-          response.data
-        )
-
-        setRegistration({
-          registration_code:
-            response.data
-              .registration_code,
-
-          participant_name:
-            response.data
-              .participant_name,
-        })
-      } catch (error) {
-        console.error(
-          "Session restoration failed:",
-          error.response?.data ||
-            error
-        )
-
-        clearSession()
-
-        setRegistration(null)
-        setSession(null)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    restoreSession()
+    clearSession()
+    setRegistration(null)
+    setSession(null)
+    setLoading(false)
   }, [])
 
   async function loginWithGoogle(

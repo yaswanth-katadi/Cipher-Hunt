@@ -585,7 +585,6 @@ function Round2() {
 
   return (
     <main className="min-h-screen bg-[#11100e] px-4 py-7 text-[#f3eee3] sm:px-5 md:px-8">
-
       <div className="mx-auto max-w-7xl">
 
 

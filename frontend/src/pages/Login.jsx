@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import FerroFluidBackground from "../components/FerroFluidBackground"
 import GoogleAuthButton from "../components/auth/GoogleAuthButton"
 import SectionLabel from "../components/common/SectionLabel"
 import CaseStamp from "../components/common/CaseStamp"
@@ -38,8 +38,12 @@ function Login() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0b0b0a] text-[#f4efe5]">
-      <div className="mx-auto flex min-h-screen w-full max-w-7xl items-center justify-center px-5 py-10 sm:px-8">
+    <main className="relative min-h-screen overflow-hidden text-[#f4efe5]">
+      {/* Animated FerroFluid Background */}
+      <FerroFluidBackground />
+
+      {/* Login Content */}
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-center justify-center px-5 py-10 sm:px-8">
         <section className="w-full max-w-xl">
           <div className="border border-[#3a3833] bg-[#11110f] p-6 shadow-2xl sm:p-10">
             <div className="mb-8 flex items-start justify-between gap-6">

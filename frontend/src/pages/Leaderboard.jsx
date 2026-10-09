@@ -2,7 +2,7 @@ import {
   useEffect,
   useState,
 } from "react"
-
+import FerroFluidBackground from "../components/FerroFluidBackground"
 import api from "../lib/api"
 
 import SectionLabel from "../components/common/SectionLabel"
@@ -57,7 +57,7 @@ function Leaderboard() {
 
   return (
     <main className="min-h-screen bg-[#11100e] px-5 py-12 text-[#f3eee3]">
-
+      <FerroFluidBackground />
       <div className="mx-auto max-w-6xl">
 
         <SectionLabel>

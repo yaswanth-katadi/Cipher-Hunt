@@ -1,7 +1,7 @@
 import {
   useNavigate,
 } from "react-router-dom"
-
+import FerroFluidBackground from "../components/FerroFluidBackground"
 import SectionLabel from "../components/common/SectionLabel"
 import PrimaryButton from "../components/common/PrimaryButton"
 
@@ -11,7 +11,8 @@ function Briefing() {
 
   return (
     <main className="min-h-screen bg-[#11100e] text-[#f3eee3]">
-
+      {/* Animated FerroFluid Background */}
+      <FerroFluidBackground />  
       <section className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-6 py-16">
 
         <SectionLabel>

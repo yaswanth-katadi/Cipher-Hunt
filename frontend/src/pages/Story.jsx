@@ -1,7 +1,7 @@
 import {
   useState,
 } from "react"
-
+import FerroFluidBackground from "../components/FerroFluidBackground"
 import {
   motion,
   AnimatePresence,
@@ -73,8 +73,9 @@ function Story() {
   }
 
   return (
+    
     <main className="min-h-screen bg-[#11100e] text-[#f3eee3]">
-
+      <FerroFluidBackground />
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col justify-between px-6 py-10">
 
         <div className="flex items-center justify-between">

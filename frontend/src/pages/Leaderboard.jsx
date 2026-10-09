@@ -7,6 +7,7 @@ import api from "../lib/api"
 import FerrofluidBackground from "../components/FerrofluidBackground"
 import SectionLabel from "../components/common/SectionLabel"
 import LoadingScreen from "../components/common/LoadingScreen"
+import CaseFooter from "../components/layout/CaseFooter"
 
 function Leaderboard() {
   const [
@@ -52,122 +53,136 @@ function Leaderboard() {
 
   if (loading) {
     return (
-      <LoadingScreen message="Loading leaderboard..." />
+      <div className="flex min-h-screen flex-col bg-[#050507]">
+        <div className="flex-1">
+          <LoadingScreen message="Loading leaderboard..." />
+        </div>
+
+        <CaseFooter />
+      </div>
     )
   }
 
   return (
-    <main className="min-h-screen bg-[#050507] px-5 py-12 text-[#f5f5f7]">
-      <FerrofluidBackground/>
-      <div className="mx-auto max-w-6xl">
+    <div className="flex min-h-screen flex-col bg-[#050507] text-[#f5f5f7]">
+      <FerrofluidBackground />
 
-        <SectionLabel>
-          Investigation Rankings
-        </SectionLabel>
+      <main className="relative z-10 w-full flex-1 px-5 py-12">
 
-        <h1 className="mt-5 text-4xl font-black uppercase md:text-6xl">
-          Leaderboard
-        </h1>
+        <div className="mx-auto max-w-6xl">
 
-        <div className="mt-6 h-px w-24 bg-[#e50914]" />
+          <SectionLabel>
+            Investigation Rankings
+          </SectionLabel>
 
-        <div className="mt-10 overflow-x-auto border border-[#292930]">
+          <h1 className="mt-5 text-4xl font-black uppercase md:text-6xl">
+            Leaderboard
+          </h1>
 
-          <table className="w-full min-w-[650px] border-collapse">
+          <div className="mt-6 h-px w-24 bg-[#e50914]" />
 
-            <thead>
-              <tr className="border-b border-[#292930] text-left">
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
-                  Rank
-                </th>
+          <div className="mt-10 overflow-x-auto border border-[#292930]">
 
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
-                  Investigator
-                </th>
+            <table className="w-full min-w-[650px] border-collapse">
 
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
-                  Time
-                </th>
+              <thead>
+                <tr className="border-b border-[#292930] text-left">
+                  <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
+                    Rank
+                  </th>
 
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
-                  Attempts
-                </th>
+                  <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
+                    Investigator
+                  </th>
 
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
-                  Hints
-                </th>
-              </tr>
-            </thead>
+                  <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
+                    Time(ms)
+                  </th>
 
-            <tbody>
+                  <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
+                    Attempts
+                  </th>
 
-              {entries.map(
-                (entry, index) => (
-                  <tr
-                    key={
-                      entry.id ||
-                      index
-                    }
-                    className="border-b border-[#24242a]"
-                  >
-                    <td className="p-4 text-xl font-black text-[#e50914]">
-                      {entry.rank ||
-                        index + 1}
-                    </td>
+                  <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
+                    Hints
+                  </th>
+                </tr>
+              </thead>
 
-                    <td className="p-4 text-sm">
-                      {
-                        entry.participant_name ||
-                        entry.registration_code ||
-                        "Investigator"
+              <tbody>
+
+                {entries.map(
+                  (entry, index) => (
+                    <tr
+                      key={
+                        entry.id ||
+                        index
                       }
-                    </td>
+                      className="border-b border-[#24242a]"
+                    >
+                      <td className="p-4 text-xl font-black text-[#e50914]">
+                        {entry.rank ||
+                          index + 1}
+                      </td>
 
-                    <td className="p-4 font-mono text-sm">
-                      {
-                        entry.total_time_ms ??
-                        entry.elapsed_ms ??
-                        "—"
-                      }
-                    </td>
+                      <td className="p-4 text-sm">
+                        {
+                          entry.participant_name ||
+                          entry.registration_code ||
+                          "Investigator"
+                        }
+                      </td>
 
-                    <td className="p-4 text-sm">
-                      {
-                        entry.total_attempts ??
-                        entry.attempts ??
-                        "—"
-                      }
-                    </td>
+                      <td className="p-4 font-mono text-sm">
+                        {
+                          entry.total_time_ms ??
+                          entry.elapsed_ms ??
+                          "—"
+                        }
+                      </td>
 
-                    <td className="p-4 text-sm">
-                      {
-                        entry.hints_used ??
-                        "0"
-                      }
-                    </td>
-                  </tr>
-                )
-              )}
+                      <td className="p-4 text-sm">
+                        {
+                          entry.total_attempts ??
+                          entry.attempts ??
+                          "—"
+                        }
+                      </td>
 
-            </tbody>
+                      <td className="p-4 text-sm">
+                        {
+                          entry.hints_used ??
+                          "0"
+                        }
+                      </td>
+                    </tr>
+                  )
+                )}
 
-          </table>
+              </tbody>
 
-          {entries.length ===
-            0 && (
-            <div className="p-10 text-center">
-              <p className="text-xs uppercase tracking-[0.2em] text-[#85858f]">
-                No completed investigations
-                yet.
-              </p>
-            </div>
-          )}
+            </table>
+
+            {entries.length ===
+              0 && (
+              <div className="p-10 text-center">
+                <p className="text-xs uppercase tracking-[0.2em] text-[#85858f]">
+                  No completed investigations
+                  yet.
+                </p>
+              </div>
+            )}
+
+          </div>
 
         </div>
 
-      </div>
+      </main>
 
-    </main>
+      <div className="relative z-10 mt-auto w-full">
+        <CaseFooter />
+      </div>
+    </div>
   )
 }
 

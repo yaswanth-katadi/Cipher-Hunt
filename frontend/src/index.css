@@ -183,3 +183,47 @@ h3,
 ::-webkit-scrollbar-track { background: #030305; }
 ::-webkit-scrollbar-thumb { background: #292930; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ch-red); }
+
+
+/* Global layout reset */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #000000;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Full-width footer */
+#case-footer {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  background: #000000;
+}
+
+
+#case-footer {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+#case-footer {
+  isolation: isolate;
+}
+
+#case-footer::before {
+  content: none;
+}

@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import GoogleAuthButton from "../components/auth/GoogleAuthButton"
 import { useAuth } from "../context/AuthContext"
 import FerrofluidBackground from "../components/FerrofluidBackground";
+import CaseFooter from "../components/layout/CaseFooter.jsx"
+ 
 function Login() {
   const { loginWithGoogle, loading } = useAuth()
   const [showAccess, setShowAccess] = useState(false)
@@ -115,9 +117,9 @@ function Login() {
             </div>
 
             <footer className="flex items-end justify-between border-t border-[#292930] pt-5 font-mono text-[9px] uppercase tracking-[0.22em] text-[#70707a]">
-              <span>CASE 01 / CLASSIFIED</span>
-              <span>Secure Investigation Portal</span>
+              
             </footer>
+            <CaseFooter></CaseFooter>
           </motion.section>
         ) : (
           <motion.section
@@ -143,7 +145,7 @@ function Login() {
               {loading && <p className="mt-4 text-center text-sm text-[#a2a2ad]">Verifying case credentials...</p>}
               {error && <div className="mt-5 border border-[#8f1119] bg-[#18080a] px-4 py-3 text-sm leading-6 text-[#ff9aa0]">{error}</div>}
 
-              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-[#292930] pt-5 font-mono text-[9px] uppercase tracking-[0.18em] text-[#70707a]">
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-[#292930] pt-5 font-mono text-[6px] uppercase tracking-[0.18em] text-[#70707a]">
                 <span>Google Verified</span>
                 <span>Secure Session</span>
                 <span>Encrypted Access</span>

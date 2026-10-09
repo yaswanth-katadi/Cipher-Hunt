@@ -43,6 +43,8 @@ CORS_ALLOWED_ORIGINS = [
     origin.strip()
     for origin in os.getenv(
         "CORS_ALLOWED_ORIGINS",
+        "https://cipherhunt.arhn.in",
+        "https://cipher-hunt-seven.vercel.app",
         "http://localhost:5173,http://127.0.0.1:5173"
     ).split(",")
     if origin.strip()
@@ -112,26 +114,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-if DATABASE_URL:
-    DATABASES = {
-        "default": dj_database_url.parse(
-            DATABASE_URL,
-            conn_max_age=600,
-        )
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("DB_NAME"),
-            "USER": os.getenv("DB_USER"),
-            "PASSWORD": os.getenv("DB_PASSWORD"),
-            "HOST": os.getenv("DB_HOST", "localhost"),
-            "PORT": os.getenv("DB_PORT", "5432"),
-        }
-    }
+DATABASES = {
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL")
+    )
+}
 
 
 # Password validation

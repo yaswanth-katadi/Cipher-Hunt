@@ -180,34 +180,16 @@ function App() {
         }
       />
 
+{/* OLD RESULT URLS — REDIRECT TO LEADERBOARD */}
+<Route
+  path="/result"
+  element={<Navigate to="/leaderboard" replace />}
+/>
 
-      {/* ================================================== */}
-      {/* FINAL RESULT                                      */}
-      {/* ================================================== */}
-
-      <Route
-        path="/result"
-        element={
-          <ProtectedRoute>
-            <FinalResult />
-          </ProtectedRoute>
-        }
-      />
-
-
-      {/* ================================================== */}
-      {/* OLD FINAL RESULT URL                              */}
-      {/* ================================================== */}
-
-      <Route
-        path="/final-result"
-        element={
-          <ProtectedRoute>
-            <FinalResult />
-          </ProtectedRoute>
-        }
-      />
-
+<Route
+  path="/final-result"
+  element={<Navigate to="/leaderboard" replace />}
+/>
 
       {/* ================================================== */}
       {/* LEADERBOARD                                       */}

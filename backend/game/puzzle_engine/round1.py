@@ -215,7 +215,7 @@ def _constraint_text(constraint):
         "object": "equipment",
         "zone": "workshop zone",
         "cctv": "CCTV status",
-        "time": "recorded time",
+        "time": "time",  # The sentence builder already adds the word "recorded".
     }
 
     label = labels[attribute]

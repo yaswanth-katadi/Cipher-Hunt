@@ -4,7 +4,7 @@ import {
   useState,
 } from "react"
 import api from "../lib/api"
-
+import FerrofluidBackground from "../components/FerrofluidBackground"
 import SectionLabel from "../components/common/SectionLabel"
 import LoadingScreen from "../components/common/LoadingScreen"
 
@@ -58,7 +58,7 @@ function Leaderboard() {
 
   return (
     <main className="min-h-screen bg-[#050507] px-5 py-12 text-[#f5f5f7]">
-
+      <FerrofluidBackground/>
       <div className="mx-auto max-w-6xl">
 
         <SectionLabel>

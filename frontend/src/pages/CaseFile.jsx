@@ -4,13 +4,14 @@ import SectionLabel from "../components/common/SectionLabel"
 import CaseStamp from "../components/common/CaseStamp"
 import PrimaryButton from "../components/common/PrimaryButton"
 import { useAuth } from "../context/AuthContext"
-
+import FerrofluidBackground from "../components/FerrofluidBackground";
 function CaseFile() {
   const navigate = useNavigate()
   const { registration, session } = useAuth()
 
   return (
     <main className="cyber-grid min-h-screen bg-[#030305] px-6 py-12 text-[#f5f5f7] sm:px-10">
+       <FerrofluidBackground/>
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between gap-5 border-b border-[#292930] pb-8 sm:flex-row sm:items-end">
           <div>

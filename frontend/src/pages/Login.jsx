@@ -2,7 +2,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import GoogleAuthButton from "../components/auth/GoogleAuthButton"
 import { useAuth } from "../context/AuthContext"
-
+import FerrofluidBackground from "../components/FerrofluidBackground";
 function Login() {
   const { loginWithGoogle, loading } = useAuth()
   const [showAccess, setShowAccess] = useState(false)
@@ -35,6 +35,7 @@ function Login() {
 
   return (
     <main className="cyber-grid min-h-screen overflow-hidden bg-[#030305] text-[#f5f5f7]">
+      <FerrofluidBackground/>
       <AnimatePresence mode="wait">
         {!showAccess ? (
           <motion.section

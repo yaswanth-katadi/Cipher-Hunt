@@ -6,7 +6,7 @@ import {
 import {
   useNavigate,
 } from "react-router-dom"
-
+import FerrofluidBackground from "../components/FerrofluidBackground";
 import api from "../lib/api"
 import LoadingScreen from "../components/common/LoadingScreen"
 
@@ -195,7 +195,7 @@ function FinalInvestigation() {
   if (error) {
     return (
       <main className="min-h-screen bg-[#030305] px-5 py-10 text-[#f5f5f7] md:px-8">
-
+         <FerrofluidBackground/>
         <div className="mx-auto max-w-2xl pt-12">
 
           <section className="border border-[#8f1119] bg-[#0d0d11] p-7 md:p-10">
@@ -235,7 +235,7 @@ function FinalInvestigation() {
 
   return (
     <main className="min-h-screen bg-[#030305] px-5 py-10 text-[#f5f5f7] md:px-8">
-
+       <FerrofluidBackground/>
       <div className="mx-auto max-w-7xl">
 
         {/* ================================================= */}

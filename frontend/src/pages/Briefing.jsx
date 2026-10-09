@@ -3,14 +3,14 @@ import {
 } from "react-router-dom"
 import SectionLabel from "../components/common/SectionLabel"
 import PrimaryButton from "../components/common/PrimaryButton"
-
+import FerrofluidBackground from "../components/FerrofluidBackground";
 function Briefing() {
   const navigate =
     useNavigate()
 
   return (
     <main className="min-h-screen bg-[#050507] text-[#f5f5f7]">
-
+       <FerrofluidBackground/>
       <section className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-6 py-16">
 
         <SectionLabel>

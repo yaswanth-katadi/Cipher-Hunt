@@ -6,7 +6,7 @@ import {
 import {
   useNavigate,
 } from "react-router-dom"
-
+import FerrofluidBackground from "../components/FerrofluidBackground";
 import api from "../lib/api"
 
 import SectionLabel from "../components/common/SectionLabel"
@@ -106,7 +106,7 @@ function FinalResult() {
 
   return (
     <main className="min-h-screen bg-[#050507] px-6 py-12 text-[#f5f5f7]">
-
+       <FerrofluidBackground/>
       <div className="mx-auto max-w-3xl">
 
         <SectionLabel>

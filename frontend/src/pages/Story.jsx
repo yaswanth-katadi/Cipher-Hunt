@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-
+import FerrofluidBackground from "../components/FerrofluidBackground";
 const scenes = [
   { number: "01", label: "THE WORKSHOP", title: "The workshop went quiet at 02:17.", text: "The lights were still on. The machines had stopped. But something was missing." },
   { number: "02", label: "THE INCIDENT", title: "A component disappeared without a trace.", text: "The owner found an empty space where a critical component had been secured only minutes earlier." },
@@ -21,6 +21,7 @@ function Story() {
 
   return (
     <main className="cyber-grid min-h-screen bg-[#030305] text-[#f5f5f7]">
+       <FerrofluidBackground/>
       <div className="mx-auto flex min-h-screen max-w-7xl flex-col justify-between px-6 py-7 sm:px-10 lg:px-14">
         <header className="flex items-center justify-between border-b border-[#24242a] pb-5">
           <div>

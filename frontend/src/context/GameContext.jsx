@@ -1,4 +1,4 @@
-```jsx
+
 import {
   createContext,
   useCallback,
@@ -221,4 +221,3 @@ export function useGame() {
 
   return context
 }
-```

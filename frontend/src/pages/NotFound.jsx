@@ -1,17 +1,16 @@
 import {
   useNavigate,
 } from "react-router-dom"
-import FerroFluidBackground from "../components/FerroFluidBackground"
 function NotFound() {
   const navigate =
     useNavigate()
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#11100e] px-6 text-[#f3eee3]">
-      <FerroFluidBackground />
+    <main className="flex min-h-screen items-center justify-center bg-[#050507] px-6 text-[#f5f5f7]">
+
       <div className="max-w-md text-center">
 
-        <p className="text-6xl font-black text-[#8f2028]">
+        <p className="text-6xl font-black text-[#e50914]">
           404
         </p>
 
@@ -19,7 +18,7 @@ function NotFound() {
           Evidence Not Found
         </h1>
 
-        <p className="mt-4 text-sm leading-7 text-[#777168]">
+        <p className="mt-4 text-sm leading-7 text-[#85858f]">
           The requested investigation page
           does not exist.
         </p>
@@ -28,7 +27,7 @@ function NotFound() {
           onClick={() =>
             navigate("/")
           }
-          className="mt-7 border border-[#8f2028] px-6 py-3 text-xs uppercase tracking-[0.2em]"
+          className="mt-7 border border-[#e50914] px-6 py-3 text-xs uppercase tracking-[0.2em]"
         >
           Return To Entry
         </button>

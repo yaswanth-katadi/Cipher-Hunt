@@ -10,7 +10,7 @@ import FinalResult from "./pages/FinalResult"
 import Leaderboard from "./pages/Leaderboard"
 import Story from "./pages/Story"
 import NotFound from "./pages/NotFound"
-
+import Video from "./pages/Video"
 import { useAuth } from "./context/AuthContext"
 import LoadingScreen from "./components/common/LoadingScreen"
 
@@ -102,7 +102,14 @@ function App() {
         }
       />
 
-
+ <Route
+  path="/video"
+  element={
+    <ProtectedRoute>
+      <Video />
+    </ProtectedRoute>
+  }
+/>
       {/* ================================================== */}
       {/* BRIEFING                                          */}
       {/* ================================================== */}

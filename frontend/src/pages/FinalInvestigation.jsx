@@ -3,7 +3,6 @@ import {
   useMemo,
   useState,
 } from "react"
-import FerroFluidBackground from "../components/FerroFluidBackground"
 import {
   useNavigate,
 } from "react-router-dom"
@@ -61,8 +60,7 @@ function FinalInvestigation() {
   // =========================================================
 
   function formatCoordinate(
-    coordinate,
-    type
+    coordinate
   ) {
     if (
       coordinate === null ||
@@ -196,13 +194,13 @@ function FinalInvestigation() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-[#0b0b0a] px-5 py-10 text-[#f4efe5] md:px-8">
+      <main className="min-h-screen bg-[#030305] px-5 py-10 text-[#f5f5f7] md:px-8">
 
         <div className="mx-auto max-w-2xl pt-12">
 
-          <section className="border border-[#7f2525] bg-[#141311] p-7 md:p-10">
+          <section className="border border-[#8f1119] bg-[#0d0d11] p-7 md:p-10">
 
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-[#a72b32]">
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-[#e50914]">
               Final Investigation Error
             </p>
 
@@ -210,14 +208,14 @@ function FinalInvestigation() {
               Coordinates Unavailable
             </h1>
 
-            <p className="mt-5 text-sm leading-7 text-[#aaa49a]">
+            <p className="mt-5 text-sm leading-7 text-[#a2a2ad]">
               {error}
             </p>
 
             <button
               type="button"
               onClick={loadFinalResult}
-              className="mt-7 border border-[#a72b32] bg-[#8f2028] px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#aa2e36]"
+              className="mt-7 border border-[#e50914] bg-[#e50914] px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition hover:bg-[#ff1a24]"
             >
               Retry
             </button>
@@ -236,8 +234,8 @@ function FinalInvestigation() {
   // =========================================================
 
   return (
-    <main className="min-h-screen bg-[#0b0b0a] px-5 py-10 text-[#f4efe5] md:px-8">
-      <FerroFluidBackground />
+    <main className="min-h-screen bg-[#030305] px-5 py-10 text-[#f5f5f7] md:px-8">
+
       <div className="mx-auto max-w-7xl">
 
         {/* ================================================= */}
@@ -246,7 +244,7 @@ function FinalInvestigation() {
 
         <section className="pt-8 md:pt-14">
 
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#a72b32]">
+          <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#e50914]">
             Final Investigation
           </p>
 
@@ -254,9 +252,9 @@ function FinalInvestigation() {
             The Trail Ends Here.
           </h1>
 
-          <div className="mt-8 h-px w-28 bg-[#a72b32]" />
+          <div className="mt-8 h-px w-28 bg-[#e50914]" />
 
-          <p className="mt-8 max-w-3xl text-base leading-7 text-[#aaa49a] md:text-lg">
+          <p className="mt-8 max-w-3xl text-base leading-7 text-[#a2a2ad] md:text-lg">
             Both investigation rounds have been completed.
             The case server has authorized the recovered location.
           </p>
@@ -268,15 +266,15 @@ function FinalInvestigation() {
         {/* COORDINATE                                        */}
         {/* ================================================= */}
 
-        <section className="mt-12 border border-[#393631] bg-[#151411] p-6 md:p-10">
+        <section className="mt-12 border border-[#292930] bg-[#09090c] p-6 md:p-10">
 
           <div className="text-center">
 
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#817b72]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#85858f]">
               Recovered Coordinate
             </p>
 
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#5f5a53]">
+            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#55555e]">
               CASE AUTHORIZED
             </p>
 
@@ -311,7 +309,7 @@ function FinalInvestigation() {
           {/* CASE INFORMATION                                 */}
           {/* ================================================= */}
 
-          <div className="mt-8 grid gap-4 border-t border-[#35322d] pt-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 border-t border-[#292930] pt-8 sm:grid-cols-2 lg:grid-cols-3">
 
             <MetaCard
               label="Case ID"
@@ -379,7 +377,7 @@ function FinalInvestigation() {
             onClick={() =>
               navigate("/result")
             }
-            className="border border-[#a72b32] bg-[#8f2028] px-7 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition hover:bg-[#aa2e36]"
+            className="border border-[#e50914] bg-[#e50914] px-7 py-4 text-xs font-bold uppercase tracking-[0.22em] text-white transition hover:bg-[#ff1a24]"
           >
             Complete Investigation
           </button>
@@ -389,7 +387,7 @@ function FinalInvestigation() {
             onClick={() =>
               navigate("/leaderboard")
             }
-            className="border border-[#403c36] px-7 py-4 text-xs font-bold uppercase tracking-[0.22em] text-[#bbb4aa] transition hover:border-[#756e63] hover:text-[#eee7dc]"
+            className="border border-[#35353d] px-7 py-4 text-xs font-bold uppercase tracking-[0.22em] text-[#b8b8c1] transition hover:border-[#70707a] hover:text-[#f5f5f7]"
           >
             View Leaderboard
           </button>
@@ -401,9 +399,9 @@ function FinalInvestigation() {
         {/* FOOTER STATUS                                     */}
         {/* ================================================= */}
 
-        <section className="mt-16 border-t border-[#35322d] pt-7">
+        <section className="mt-16 border-t border-[#292930] pt-7">
 
-          <div className="flex flex-wrap gap-x-8 gap-y-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#625e57]">
+          <div className="flex flex-wrap gap-x-8 gap-y-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#5f5f68]">
 
             <span>
               Latitude Recovered
@@ -437,13 +435,13 @@ function CoordinateCard({
   value,
 }) {
   return (
-    <div className="border border-[#403c35] bg-[#11100e] p-7 text-center md:p-9">
+    <div className="border border-[#35353d] bg-[#050507] p-7 text-center md:p-9">
 
-      <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#817b72]">
+      <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
         {label}
       </p>
 
-      <p className="mt-8 break-words text-3xl font-black tracking-tight text-[#eee7dc] sm:text-4xl md:text-5xl">
+      <p className="mt-8 break-words text-3xl font-black tracking-tight text-[#f5f5f7] sm:text-4xl md:text-5xl">
         {value}
       </p>
 
@@ -461,13 +459,13 @@ function MetaCard({
   value,
 }) {
   return (
-    <div className="border border-[#3c3832] bg-[#11100e] p-4">
+    <div className="border border-[#35353d] bg-[#050507] p-4">
 
-      <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#68635b]">
+      <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#5f5f68]">
         {label}
       </p>
 
-      <p className="mt-2 break-words text-sm font-semibold text-[#d5cec2]">
+      <p className="mt-2 break-words text-sm font-semibold text-[#d0d0d8]">
         {value}
       </p>
 

@@ -1,8 +1,8 @@
 import {
+  useCallback,
   useEffect,
   useState,
 } from "react"
-import FerroFluidBackground from "../components/FerroFluidBackground"
 import {
   useNavigate,
 } from "react-router-dom"
@@ -17,10 +17,6 @@ function FinalResult() {
   const navigate =
     useNavigate()
 
-  const [
-    result,
-    setResult,
-  ] = useState(null)
 
   const [
     loading,
@@ -42,24 +38,15 @@ function FinalResult() {
     setError,
   ] = useState(null)
 
-  useEffect(() => {
-    loadSession()
-  }, [])
-
-  async function loadSession() {
+  const loadSession = useCallback(async () => {
     try {
       const sessionId =
         localStorage.getItem(
           "cipherhunt_session_id"
         )
 
-      const response =
-        await api.get(
-          `/session/${sessionId}/`
-        )
-
-      setResult(
-        response.data
+      await api.get(
+        `/session/${sessionId}/`
       )
     } catch (err) {
       console.error(
@@ -69,7 +56,11 @@ function FinalResult() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    void loadSession()
+  }, [loadSession])
 
   async function submitResult() {
     setError(null)
@@ -85,19 +76,14 @@ function FinalResult() {
     }
 
     try {
-      const response =
-        await api.post(
-          "/session/final-result/",
-          {
-            latitude:
-              Number(latitude),
-            longitude:
-              Number(longitude),
-          }
-        )
-
-      setResult(
-        response.data
+      await api.post(
+        "/session/final-result/",
+        {
+          latitude:
+            Number(latitude),
+          longitude:
+            Number(longitude),
+        }
       )
 
       navigate(
@@ -119,9 +105,8 @@ function FinalResult() {
   }
 
   return (
-    <main className="min-h-screen bg-[#11100e] px-6 py-12 text-[#f3eee3]">
+    <main className="min-h-screen bg-[#050507] px-6 py-12 text-[#f5f5f7]">
 
-      <FerroFluidBackground />
       <div className="mx-auto max-w-3xl">
 
         <SectionLabel>
@@ -132,19 +117,19 @@ function FinalResult() {
           Close The Case
         </h1>
 
-        <div className="mt-6 h-px w-24 bg-[#8f2028]" />
+        <div className="mt-6 h-px w-24 bg-[#e50914]" />
 
-        <p className="mt-7 text-sm leading-7 text-[#aaa298]">
+        <p className="mt-7 text-sm leading-7 text-[#a2a2ad]">
           Submit the coordinate recovered
           during the investigation.
         </p>
 
-        <div className="mt-10 border border-[#3a3530] bg-[#171512] p-7">
+        <div className="mt-10 border border-[#292930] bg-[#0d0d11] p-7">
 
           <div className="grid gap-5 md:grid-cols-2">
 
             <label>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
                 Latitude
               </span>
 
@@ -157,12 +142,12 @@ function FinalResult() {
                     event.target.value
                   )
                 }
-                className="mt-3 w-full border border-[#403a34] bg-[#11100e] px-4 py-3 text-[#f3eee3] outline-none focus:border-[#8f2028]"
+                className="mt-3 w-full border border-[#35353d] bg-[#050507] px-4 py-3 text-[#f5f5f7] outline-none focus:border-[#e50914]"
               />
             </label>
 
             <label>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
                 Longitude
               </span>
 
@@ -175,14 +160,14 @@ function FinalResult() {
                     event.target.value
                   )
                 }
-                className="mt-3 w-full border border-[#403a34] bg-[#11100e] px-4 py-3 text-[#f3eee3] outline-none focus:border-[#8f2028]"
+                className="mt-3 w-full border border-[#35353d] bg-[#050507] px-4 py-3 text-[#f5f5f7] outline-none focus:border-[#e50914]"
               />
             </label>
 
           </div>
 
           {error && (
-            <p className="mt-5 border border-[#8f2028] p-4 text-sm text-[#c55b63]">
+            <p className="mt-5 border border-[#e50914] p-4 text-sm text-[#ff9aa0]">
               {error}
             </p>
           )}

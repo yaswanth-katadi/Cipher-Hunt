@@ -10,7 +10,7 @@ function ConnectionLine() {
           y1="25%"
           x2="75%"
           y2="75%"
-          stroke="#8f2028"
+          stroke="#e50914"
           strokeWidth="2"
           strokeOpacity="0.35"
         />

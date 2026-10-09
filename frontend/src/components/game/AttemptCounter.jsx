@@ -3,7 +3,7 @@ function AttemptCounter({
 }) {
   return (
     <div>
-      <p className="text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+      <p className="text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
         Accepted Attempts
       </p>
 

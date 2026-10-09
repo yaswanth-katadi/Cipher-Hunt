@@ -18,8 +18,8 @@ function InvestigationMap({
     longitude === undefined
   ) {
     return (
-      <div className="flex min-h-[350px] items-center justify-center border border-[#3a3530] bg-[#171512]">
-        <p className="text-xs uppercase tracking-[0.2em] text-[#777168]">
+      <div className="flex min-h-[350px] items-center justify-center border border-[#292930] bg-[#0d0d11]">
+        <p className="text-xs uppercase tracking-[0.2em] text-[#85858f]">
           Coordinate not yet recovered
         </p>
       </div>
@@ -32,7 +32,7 @@ function InvestigationMap({
   ]
 
   return (
-    <div className="overflow-hidden border border-[#3a3530]">
+    <div className="overflow-hidden border border-[#292930]">
       <MapContainer
         center={position}
         zoom={12}

@@ -1,19 +1,12 @@
-import {
-  Outlet,
-} from "react-router-dom"
-
+import { Outlet } from "react-router-dom"
 import CaseHeader from "./CaseHeader"
 import CaseFooter from "./CaseFooter"
 
 function CaseLayout() {
   return (
-    <div className="min-h-screen bg-[#11100e] text-[#f3eee3]">
+    <div className="cyber-grid min-h-screen bg-[#030305] text-[#f5f5f7]">
       <CaseHeader />
-
-      <main>
-        <Outlet />
-      </main>
-
+      <main>{/* Existing routes remain unchanged. */}<Outlet /></main>
       <CaseFooter />
     </div>
   )

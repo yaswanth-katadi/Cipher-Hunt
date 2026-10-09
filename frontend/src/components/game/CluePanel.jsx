@@ -4,9 +4,9 @@ function CluePanel({
   clues = [],
 }) {
   return (
-    <section className="border border-[#3a3530] bg-[#171512] p-5 md:p-7">
+    <section className="border border-[#292930] bg-[#0d0d11] p-5 md:p-7">
 
-      <p className="text-[10px] uppercase tracking-[0.25em] text-[#777168]">
+      <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
         Evidence Log
       </p>
 
@@ -19,7 +19,7 @@ function CluePanel({
                 clue.id ||
                 index
               }
-              className="border-l border-[#8f2028] pl-4"
+              className="border-l border-[#e50914] pl-4"
             >
               <EvidenceTag>
                 {clue.tag ||
@@ -28,7 +28,7 @@ function CluePanel({
                   }`}
               </EvidenceTag>
 
-              <p className="mt-3 text-sm leading-6 text-[#c2bbb1]">
+              <p className="mt-3 text-sm leading-6 text-[#b8b8c1]">
                 {clue.text}
               </p>
             </article>

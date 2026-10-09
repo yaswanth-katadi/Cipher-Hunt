@@ -6,13 +6,13 @@ function OrderPanel({
   disabled = false,
 }) {
   return (
-    <section className="border border-[#3a3530] bg-[#171512] p-5 md:p-7">
+    <section className="border border-[#292930] bg-[#0d0d11] p-5 md:p-7">
 
-      <p className="text-[10px] uppercase tracking-[0.25em] text-[#777168]">
+      <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
         Reconstruct The Order
       </p>
 
-      <p className="mt-3 text-sm leading-6 text-[#aaa298]">
+      <p className="mt-3 text-sm leading-6 text-[#a2a2ad]">
         Arrange the four recovered nodes
         according to the ordering rule
         contained in the evidence.
@@ -29,13 +29,13 @@ function OrderPanel({
               onClick={() =>
                 onMoveLeft(index)
               }
-              className="border border-[#5a5148] bg-[#11100e] p-4 text-center"
+              className="border border-[#55555e] bg-[#050507] p-4 text-center"
             >
-              <span className="block text-[10px] text-[#777168]">
+              <span className="block text-[10px] text-[#85858f]">
                 {index + 1}
               </span>
 
-              <span className="mt-2 block text-2xl font-black text-[#8f2028]">
+              <span className="mt-2 block text-2xl font-black text-[#e50914]">
                 {node}
               </span>
             </button>
@@ -57,7 +57,7 @@ function OrderPanel({
               order.length - 1
             )
           }
-          className="border border-[#403a34] px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-[#aaa298] disabled:opacity-40"
+          className="border border-[#35353d] px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-[#a2a2ad] disabled:opacity-40"
         >
           Move Last Left
         </button>
@@ -71,7 +71,7 @@ function OrderPanel({
           onClick={() =>
             onMoveRight(0)
           }
-          className="border border-[#403a34] px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-[#aaa298] disabled:opacity-40"
+          className="border border-[#35353d] px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-[#a2a2ad] disabled:opacity-40"
         >
           Move First Right
         </button>
@@ -85,7 +85,7 @@ function OrderPanel({
           order.length !== 4
         }
         onClick={onSubmit}
-        className="mt-6 w-full border border-[#8f2028] bg-[#8f2028] px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] disabled:cursor-not-allowed disabled:opacity-40"
+        className="mt-6 w-full border border-[#e50914] bg-[#e50914] px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] disabled:cursor-not-allowed disabled:opacity-40"
       >
         Submit Order
       </button>

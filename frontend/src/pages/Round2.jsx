@@ -548,11 +548,11 @@ function Round2() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-[#11100e] px-5 py-10 text-[#f3eee3]">
+      <main className="min-h-screen bg-[#050507] px-5 py-10 text-[#f5f5f7]">
 
-        <div className="mx-auto max-w-xl border border-[#8f2028] bg-[#171512] p-8">
+        <div className="mx-auto max-w-xl border border-[#e50914] bg-[#0d0d11] p-8">
 
-          <p className="text-xs uppercase tracking-[0.2em] text-[#8f2028]">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#e50914]">
             Investigation Error
           </p>
 
@@ -560,14 +560,14 @@ function Round2() {
             Round 02 could not be loaded
           </h1>
 
-          <p className="mt-4 text-sm leading-7 text-[#aaa298]">
+          <p className="mt-4 text-sm leading-7 text-[#a2a2ad]">
             {error}
           </p>
 
           <button
             type="button"
             onClick={initialize}
-            className="mt-6 border border-[#8f2028] px-5 py-3 text-xs uppercase tracking-[0.2em] transition hover:bg-[#8f2028] hover:text-white"
+            className="mt-6 border border-[#e50914] px-5 py-3 text-xs uppercase tracking-[0.2em] transition hover:bg-[#e50914] hover:text-white"
           >
             Retry
           </button>
@@ -584,7 +584,8 @@ function Round2() {
   // =========================================================
 
   return (
-    <main className="min-h-screen bg-[#11100e] px-4 py-7 text-[#f3eee3] sm:px-5 md:px-8">
+    <main className="min-h-screen bg-[#050507] px-4 py-7 text-[#f5f5f7] sm:px-5 md:px-8">
+
       <div className="mx-auto max-w-7xl">
 
 
@@ -603,13 +604,13 @@ function Round2() {
         {/* INTRO                                             */}
         {/* ================================================= */}
 
-        <section className="mt-7 border-y border-[#39352f] py-5">
+        <section className="mt-7 border-y border-[#292930] py-5">
 
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
 
             <div>
 
-              <p className="text-[10px] uppercase tracking-[0.25em] text-[#8c857b]">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
                 Investigation Round 02
               </p>
 
@@ -619,7 +620,7 @@ function Round2() {
 
             </div>
 
-            <p className="max-w-md text-sm leading-6 text-[#928c83]">
+            <p className="max-w-md text-sm leading-6 text-[#85858f]">
               The clues no longer describe locations. They describe
               words. Count the symbols, extract the letters, then
               identify the four nodes.
@@ -641,13 +642,13 @@ function Round2() {
           {/* EXTRACTION CLUES                                  */}
           {/* ================================================= */}
 
-          <section className="border border-[#3a3530] bg-[#171512] p-5 sm:p-7">
+          <section className="border border-[#292930] bg-[#0d0d11] p-5 sm:p-7">
 
-            <div className="flex flex-col gap-2 border-b border-[#39352f] pb-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-2 border-b border-[#292930] pb-5 sm:flex-row sm:items-end sm:justify-between">
 
               <div>
 
-                <p className="text-[10px] uppercase tracking-[0.25em] text-[#817a70]">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
                   Evidence Log
                 </p>
 
@@ -657,7 +658,7 @@ function Round2() {
 
               </div>
 
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#625e57]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#5f5f68]">
                 FOUR CLUES
               </span>
 
@@ -668,13 +669,13 @@ function Round2() {
 
               {clues.length === 0 ? (
 
-                <div className="border border-[#4a2d2d] bg-[#1b1513] p-5 md:col-span-2">
+                <div className="border border-[#2b0b0e] bg-[#09090c] p-5 md:col-span-2">
 
-                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#a83232]">
+                  <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#ff1a24]">
                     No extraction clues received
                   </p>
 
-                  <p className="mt-2 text-sm leading-6 text-[#aaa298]">
+                  <p className="mt-2 text-sm leading-6 text-[#a2a2ad]">
                     The server returned the Round 02 payload,
                     but no clue entries were found.
                   </p>
@@ -706,35 +707,35 @@ function Round2() {
                           clue?.id ||
                           `clue-${index + 1}`
                         }
-                        className="border border-[#403b34] bg-[#141310] p-5"
+                        className="border border-[#35353d] bg-[#0d0d11] p-5"
                       >
 
                         <div className="flex items-center justify-between gap-4">
 
-                          <span className="border border-[#5b5045] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#c5baab]">
+                          <span className="border border-[#55555e] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[#c5c5ce]">
                             {tag}
                           </span>
 
-                          <span className="font-mono text-[10px] text-[#625e57]">
+                          <span className="font-mono text-[10px] text-[#5f5f68]">
                             E-{String(index + 1).padStart(2, "0")}
                           </span>
 
                         </div>
 
 
-                        <div className="mt-5 border-l border-[#8f2028] pl-4">
+                        <div className="mt-5 border-l border-[#e50914] pl-4">
 
-                          <p className="font-mono text-2xl leading-8 tracking-[0.12em] text-[#eee7dc] break-words">
+                          <p className="font-mono text-2xl leading-8 tracking-[0.12em] text-[#f5f5f7] break-words">
                             {emojiText || "—"}
                           </p>
 
-                          <div className="mt-4 border-t border-[#332f2a] pt-4">
+                          <div className="mt-4 border-t border-[#292930] pt-4">
 
-                            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#706a61]">
+                            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#70707a]">
                               Displayed Word
                             </p>
 
-                            <p className="mt-2 text-lg font-bold uppercase tracking-[0.08em] text-[#d9d0c4]">
+                            <p className="mt-2 text-lg font-bold uppercase tracking-[0.08em] text-[#d0d0d8]">
                               {displayWord || "—"}
                             </p>
 
@@ -758,11 +759,11 @@ function Round2() {
           {/* HOW TO DECODE                                     */}
           {/* ================================================= */}
 
-          <section className="border border-[#3a3530] bg-[#171512] p-5 sm:p-7">
+          <section className="border border-[#292930] bg-[#0d0d11] p-5 sm:p-7">
 
             <div>
 
-              <p className="text-[10px] uppercase tracking-[0.25em] text-[#817a70]">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
                 Investigation Notes
               </p>
 
@@ -782,14 +783,14 @@ function Round2() {
 
                     <div
                       key={index}
-                      className="border-l border-[#8f2028] px-4 py-2"
+                      className="border-l border-[#e50914] px-4 py-2"
                     >
 
-                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#625e57]">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#5f5f68]">
                         STEP {String(index + 1).padStart(2, "0")}
                       </p>
 
-                      <p className="mt-2 text-sm leading-6 text-[#cfc7bb]">
+                      <p className="mt-2 text-sm leading-6 text-[#c5c5ce]">
                         {typeof instruction === "string"
                           ? instruction
                           : instruction?.text ||
@@ -841,13 +842,13 @@ function Round2() {
           {/* ================================================= */}
 
           {Object.keys(letterToNode).length > 0 && (
-            <section className="border border-[#3a3530] bg-[#171512] p-5 sm:p-7">
+            <section className="border border-[#292930] bg-[#0d0d11] p-5 sm:p-7">
 
               <div className="flex items-end justify-between gap-4">
 
                 <div>
 
-                  <p className="text-[10px] uppercase tracking-[0.25em] text-[#817a70]">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
                     Reference Evidence
                   </p>
 
@@ -857,7 +858,7 @@ function Round2() {
 
                 </div>
 
-                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#625e57]">
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#5f5f68]">
                   NODE KEY
                 </span>
 
@@ -871,14 +872,14 @@ function Round2() {
 
                     <div
                       key={letter}
-                      className="border border-[#403b34] bg-[#141310] p-3 text-center"
+                      className="border border-[#35353d] bg-[#0d0d11] p-3 text-center"
                     >
 
-                      <p className="font-mono text-lg font-bold text-[#eee7dc]">
+                      <p className="font-mono text-lg font-bold text-[#f5f5f7]">
                         {letter}
                       </p>
 
-                      <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.15em] text-[#8f2028]">
+                      <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.15em] text-[#e50914]">
                         NODE {node}
                       </p>
 
@@ -897,7 +898,7 @@ function Round2() {
           {/* ATTEMPTS                                          */}
           {/* ================================================= */}
 
-          <section className="border border-[#3a3530] bg-[#171512] p-5">
+          <section className="border border-[#292930] bg-[#0d0d11] p-5">
 
             <AttemptCounter
               attempts={
@@ -917,13 +918,13 @@ function Round2() {
 
           {stage === 1 ? (
 
-            <section className="border border-[#3a3530] bg-[#171512] p-5 sm:p-7">
+            <section className="border border-[#292930] bg-[#0d0d11] p-5 sm:p-7">
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 
                 <div>
 
-                  <p className="text-[10px] uppercase tracking-[0.25em] text-[#817a70]">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
                     Stage 01
                   </p>
 
@@ -931,14 +932,14 @@ function Round2() {
                     Identify Four Nodes
                   </h2>
 
-                  <p className="mt-2 max-w-xl text-sm leading-6 text-[#928c83]">
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-[#85858f]">
                     Select exactly four nodes from the nine-point grid.
                     The server will verify the set.
                   </p>
 
                 </div>
 
-                <p className="font-mono text-xs text-[#80796f]">
+                <p className="font-mono text-xs text-[#85858f]">
                   {selectedNodes.length} / 4 SELECTED
                 </p>
 
@@ -969,15 +970,15 @@ function Round2() {
                           "relative aspect-square min-h-[90px] border transition-all duration-200",
                           "touch-manipulation select-none",
                           selected
-                            ? "border-[#a52a32] bg-[#371719]"
-                            : "border-[#403b34] bg-[#141310] hover:border-[#746b60] hover:bg-[#1c1a17]",
+                            ? "border-[#ff1a24] bg-[#18080a]"
+                            : "border-[#35353d] bg-[#0d0d11] hover:border-[#70707a] hover:bg-[#09090c]",
                           submitting
                             ? "cursor-not-allowed opacity-60"
                             : "cursor-pointer",
                         ].join(" ")}
                       >
 
-                        <span className="absolute left-3 top-3 font-mono text-[10px] uppercase tracking-[0.15em] text-[#625e57]">
+                        <span className="absolute left-3 top-3 font-mono text-[10px] uppercase tracking-[0.15em] text-[#5f5f68]">
                           NODE
                         </span>
 
@@ -985,8 +986,8 @@ function Round2() {
                           className={[
                             "absolute inset-0 flex items-center justify-center font-black text-4xl",
                             selected
-                              ? "text-[#d94b50]"
-                              : "text-[#a72b32]",
+                              ? "text-[#ff1a24]"
+                              : "text-[#e50914]",
                           ].join(" ")}
                         >
                           {node}
@@ -994,7 +995,7 @@ function Round2() {
 
 
                         {selected && (
-                          <span className="absolute bottom-3 right-3 font-mono text-[10px] text-[#dec1b7]">
+                          <span className="absolute bottom-3 right-3 font-mono text-[10px] text-[#d0d0d8]">
                             #{selectedNodes.indexOf(node) + 1}
                           </span>
                         )}
@@ -1020,7 +1021,7 @@ function Round2() {
                 onClick={
                   resetStage1
                 }
-                className="mt-5 w-full border border-[#403b34] bg-[#141310] px-5 py-4 text-xs font-bold uppercase tracking-[0.2em] text-[#aaa298] transition hover:border-[#756d63] hover:text-[#eee7dc] disabled:cursor-not-allowed disabled:opacity-30 sm:max-w-lg"
+                className="mt-5 w-full border border-[#35353d] bg-[#0d0d11] px-5 py-4 text-xs font-bold uppercase tracking-[0.2em] text-[#a2a2ad] transition hover:border-[#70707a] hover:text-[#f5f5f7] disabled:cursor-not-allowed disabled:opacity-30 sm:max-w-lg"
               >
                 Reset Selection
               </button>
@@ -1039,7 +1040,7 @@ function Round2() {
                 onClick={
                   submitStage1
                 }
-                className="mt-3 w-full border border-[#8f2028] bg-[#8f2028] px-5 py-4 text-xs font-bold uppercase tracking-[0.2em] transition hover:bg-[#aa2c35] disabled:cursor-not-allowed disabled:opacity-40 sm:max-w-lg"
+                className="mt-3 w-full border border-[#e50914] bg-[#e50914] px-5 py-4 text-xs font-bold uppercase tracking-[0.2em] transition hover:bg-[#ff1a24] disabled:cursor-not-allowed disabled:opacity-40 sm:max-w-lg"
               >
                 {submitting
                   ? "Verifying..."
@@ -1054,11 +1055,11 @@ function Round2() {
             /* STAGE 2                                       */
             /* ============================================= */
 
-            <section className="border border-[#3a3530] bg-[#171512] p-5 sm:p-7">
+            <section className="border border-[#292930] bg-[#0d0d11] p-5 sm:p-7">
 
               <div className="mb-6">
 
-                <p className="text-[10px] uppercase tracking-[0.25em] text-[#817a70]">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
                   Stage 02
                 </p>
 
@@ -1066,7 +1067,7 @@ function Round2() {
                   Reconstruct The Trail
                 </h2>
 
-                <p className="mt-2 max-w-xl text-sm leading-6 text-[#928c83]">
+                <p className="mt-2 max-w-xl text-sm leading-6 text-[#85858f]">
                   Arrange the four recovered nodes in the exact
                   order indicated by the evidence.
                 </p>
@@ -1121,13 +1122,13 @@ function DecodeStep({
   text,
 }) {
   return (
-    <div className="border-l border-[#8f2028] px-4 py-2">
+    <div className="border-l border-[#e50914] px-4 py-2">
 
-      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#625e57]">
+      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#5f5f68]">
         STEP {number}
       </p>
 
-      <p className="mt-2 text-sm leading-6 text-[#cfc7bb]">
+      <p className="mt-2 text-sm leading-6 text-[#c5c5ce]">
         {text}
       </p>
 

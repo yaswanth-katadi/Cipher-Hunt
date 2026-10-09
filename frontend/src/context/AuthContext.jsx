@@ -109,8 +109,11 @@ export function AuthProvider({
       const data =
         response.data
 
+      // Support both response shapes:
+      //   Nested:  { session: { session_token, id }, registration: { ... } }
+      //   Flat:    { session_token, id, registration_code, ... }
       const sessionData =
-        data.session
+        data.session ?? data
 
       const sessionToken =
         sessionData?.session_token
@@ -133,7 +136,10 @@ export function AuthProvider({
       })
 
       setRegistration(
-        data.registration
+        data.registration ?? {
+          registration_code: sessionData.registration_code,
+          participant_name: sessionData.participant_name,
+        }
       )
 
       setSession(
@@ -186,6 +192,7 @@ export function AuthProvider({
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context =
     useContext(AuthContext)

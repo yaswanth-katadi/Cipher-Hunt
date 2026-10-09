@@ -3,30 +3,30 @@ function CoordinateDisplay({
   longitude,
 }) {
   return (
-    <div className="border border-[#3a3530] bg-[#171512] p-7 text-center">
+    <div className="border border-[#292930] bg-[#0d0d11] p-7 text-center">
 
-      <p className="text-[10px] uppercase tracking-[0.3em] text-[#777168]">
+      <p className="text-[10px] uppercase tracking-[0.3em] text-[#85858f]">
         Recovered Coordinate
       </p>
 
       <div className="mt-5 grid grid-cols-2 gap-4">
 
-        <div className="border border-[#403a34] p-5">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+        <div className="border border-[#35353d] p-5">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
             Latitude
           </p>
 
-          <p className="mt-2 text-2xl font-black text-[#8f2028]">
+          <p className="mt-2 text-2xl font-black text-[#e50914]">
             {latitude ?? "—"}
           </p>
         </div>
 
-        <div className="border border-[#403a34] p-5">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+        <div className="border border-[#35353d] p-5">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
             Longitude
           </p>
 
-          <p className="mt-2 text-2xl font-black text-[#8f2028]">
+          <p className="mt-2 text-2xl font-black text-[#e50914]">
             {longitude ?? "—"}
           </p>
         </div>

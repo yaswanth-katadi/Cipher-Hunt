@@ -7,11 +7,11 @@ function RoundTimer({
 }) {
   return (
     <div className="text-right">
-      <p className="text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+      <p className="text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
         Investigation Time
       </p>
 
-      <p className="font-mono text-xl text-[#d7d0c5]">
+      <p className="font-mono text-xl text-[#e0e0e8]">
         {formatTime(
           milliseconds
         )}

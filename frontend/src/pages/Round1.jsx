@@ -599,11 +599,10 @@ function Round1() {
   if (error) {
 
     return (
-      <main className="min-h-screen bg-[#11100e] px-6 py-16 text-[#f3eee3]">
+      <main className="min-h-screen bg-[#050507] px-6 py-16 text-[#f5f5f7]">
+        <div className="mx-auto max-w-xl border border-[#e50914] bg-[#0d0d11] p-8">
 
-        <div className="mx-auto max-w-xl border border-[#8f2028] bg-[#171512] p-8">
-
-          <p className="text-xs uppercase tracking-[0.2em] text-[#8f2028]">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#e50914]">
             Investigation Error
           </p>
 
@@ -611,14 +610,14 @@ function Round1() {
             Round 01 could not be loaded
           </h1>
 
-          <p className="mt-4 text-sm leading-7 text-[#aaa298]">
+          <p className="mt-4 text-sm leading-7 text-[#a2a2ad]">
             {error}
           </p>
 
           <button
             type="button"
             onClick={initialize}
-            className="mt-6 border border-[#8f2028] px-5 py-3 text-xs uppercase tracking-[0.2em] transition hover:bg-[#8f2028] hover:text-white"
+            className="mt-6 border border-[#e50914] px-5 py-3 text-xs uppercase tracking-[0.2em] transition hover:bg-[#e50914] hover:text-white"
           >
             Retry
           </button>
@@ -636,18 +635,7 @@ function Round1() {
   // ---------------------------------------------------------
 
   return (
-    <main className="relative min-h-screen overflow-hidden px-5 py-8 text-[#f3eee3] md:px-8">
-
-      {/* ===================================================== */}
-      {/* FERROFLUID BACKGROUND                                  */}
-      {/* ===================================================== */}
-
-  
-
-
-      {/* ===================================================== */}
-      {/* ALL PAGE CONTENT                                      */}
-      {/* ===================================================== */}
+    <main className="min-h-screen bg-[#050507] px-5 py-8 text-[#f5f5f7] md:px-8">
 
       <div className="relative z-10 mx-auto max-w-7xl">
 
@@ -687,7 +675,7 @@ function Round1() {
             {/* ATTEMPTS                                        */}
             {/* ----------------------------------------------- */}
 
-            <div className="border border-[#3a3530] bg-[#171512] p-5">
+            <div className="border border-[#292930] bg-[#0d0d11] p-5">
 
               <AttemptCounter
                 attempts={
@@ -714,13 +702,13 @@ function Round1() {
 
             {stage === 1 ? (
 
-              <section className="border border-[#3a3530] bg-[#171512] p-5 md:p-7">
+              <section className="border border-[#292930] bg-[#0d0d11] p-5 md:p-7">
 
                 <div className="mb-6 flex items-end justify-between gap-4">
 
                   <div>
 
-                    <p className="text-[10px] uppercase tracking-[0.25em] text-[#777168]">
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-[#85858f]">
                       Stage 01
                     </p>
 
@@ -728,14 +716,14 @@ function Round1() {
                       Find The Nodes
                     </h2>
 
-                    <p className="mt-2 max-w-xl text-sm leading-6 text-[#938d84]">
+                    <p className="mt-2 max-w-xl text-sm leading-6 text-[#85858f]">
                       Examine the evidence and identify the four
                       nodes belonging to this investigation.
                     </p>
 
                   </div>
 
-                  <p className="shrink-0 text-xs text-[#777168]">
+                  <p className="shrink-0 text-xs text-[#85858f]">
                     {selectedNodes.length} / 4 selected
                   </p>
 
@@ -783,7 +771,7 @@ function Round1() {
                     submitting ||
                     selectedNodes.length === 0
                   }
-                  className="mt-4 w-full border border-[#3d3933] bg-[#141310] px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-[#b8b1a6] transition hover:border-[#756e63] hover:text-[#eee7dc] disabled:cursor-not-allowed disabled:opacity-30"
+                  className="mt-4 w-full border border-[#35353d] bg-[#0d0d11] px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-[#b8b8c1] transition hover:border-[#70707a] hover:text-[#f5f5f7] disabled:cursor-not-allowed disabled:opacity-30"
                 >
                   Reset Selection
                 </button>
@@ -800,7 +788,7 @@ function Round1() {
                     selectedNodes.length !== 4
                   }
                   onClick={submitStage1}
-                  className="mt-3 w-full border border-[#8f2028] bg-[#8f2028] px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] transition hover:bg-[#a92a32] disabled:cursor-not-allowed disabled:opacity-40"
+                  className="mt-3 w-full border border-[#e50914] bg-[#e50914] px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] transition hover:bg-[#ff1a24] disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {submitting
                     ? "Verifying..."

@@ -1,18 +1,17 @@
-function PrimaryButton({
-  children,
-  onClick,
-  disabled = false,
-  type = "button",
-}) {
+import { motion } from "framer-motion"
+
+function PrimaryButton({ children, onClick, disabled = false, type = "button" }) {
   return (
-    <button
+    <motion.button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className="border border-[#8f2028] bg-[#8f2028] px-6 py-3 text-xs font-bold uppercase tracking-[0.22em] text-[#f3eee3] transition hover:bg-[#a32932] disabled:cursor-not-allowed disabled:opacity-40"
+      whileHover={!disabled ? { x: 3 } : undefined}
+      whileTap={!disabled ? { scale: 0.98 } : undefined}
+      className="border border-[#e50914] bg-[#e50914] px-6 py-3 font-cyber text-[10px] font-bold uppercase tracking-[0.2em] text-[#f5f5f7] transition hover:bg-[#ff1a24] disabled:cursor-not-allowed disabled:opacity-40"
     >
       {children}
-    </button>
+    </motion.button>
   )
 }
 

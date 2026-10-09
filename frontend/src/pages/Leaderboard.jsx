@@ -1,8 +1,8 @@
 import {
+  useCallback,
   useEffect,
   useState,
 } from "react"
-import FerroFluidBackground from "../components/FerroFluidBackground"
 import api from "../lib/api"
 
 import SectionLabel from "../components/common/SectionLabel"
@@ -19,11 +19,7 @@ function Leaderboard() {
     setLoading,
   ] = useState(true)
 
-  useEffect(() => {
-    loadLeaderboard()
-  }, [])
-
-  async function loadLeaderboard() {
+  const loadLeaderboard = useCallback(async () => {
     try {
       const response =
         await api.get(
@@ -47,7 +43,12 @@ function Leaderboard() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void loadLeaderboard()
+  }, [loadLeaderboard])
 
   if (loading) {
     return (
@@ -56,8 +57,8 @@ function Leaderboard() {
   }
 
   return (
-    <main className="min-h-screen bg-[#11100e] px-5 py-12 text-[#f3eee3]">
-      <FerroFluidBackground />
+    <main className="min-h-screen bg-[#050507] px-5 py-12 text-[#f5f5f7]">
+
       <div className="mx-auto max-w-6xl">
 
         <SectionLabel>
@@ -68,31 +69,31 @@ function Leaderboard() {
           Leaderboard
         </h1>
 
-        <div className="mt-6 h-px w-24 bg-[#8f2028]" />
+        <div className="mt-6 h-px w-24 bg-[#e50914]" />
 
-        <div className="mt-10 overflow-x-auto border border-[#3a3530]">
+        <div className="mt-10 overflow-x-auto border border-[#292930]">
 
           <table className="w-full min-w-[650px] border-collapse">
 
             <thead>
-              <tr className="border-b border-[#3a3530] text-left">
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+              <tr className="border-b border-[#292930] text-left">
+                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
                   Rank
                 </th>
 
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
                   Investigator
                 </th>
 
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
                   Time
                 </th>
 
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
                   Attempts
                 </th>
 
-                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#777168]">
+                <th className="p-4 text-[10px] uppercase tracking-[0.2em] text-[#85858f]">
                   Hints
                 </th>
               </tr>
@@ -107,9 +108,9 @@ function Leaderboard() {
                       entry.id ||
                       index
                     }
-                    className="border-b border-[#2d2925]"
+                    className="border-b border-[#24242a]"
                   >
-                    <td className="p-4 text-xl font-black text-[#8f2028]">
+                    <td className="p-4 text-xl font-black text-[#e50914]">
                       {entry.rank ||
                         index + 1}
                     </td>
@@ -155,7 +156,7 @@ function Leaderboard() {
           {entries.length ===
             0 && (
             <div className="p-10 text-center">
-              <p className="text-xs uppercase tracking-[0.2em] text-[#777168]">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#85858f]">
                 No completed investigations
                 yet.
               </p>

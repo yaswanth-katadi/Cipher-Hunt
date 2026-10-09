@@ -7,22 +7,22 @@ function StageIndicator({
       <span
         className={
           stage === 1
-            ? "text-[#8f2028]"
-            : "text-[#625c55]"
+            ? "text-[#e50914]"
+            : "text-[#5f5f68]"
         }
       >
         Stage 01
       </span>
 
-      <span className="text-[#4b4640]">
+      <span className="text-[#3d3d45]">
         /
       </span>
 
       <span
         className={
           stage === 2
-            ? "text-[#8f2028]"
-            : "text-[#625c55]"
+            ? "text-[#e50914]"
+            : "text-[#5f5f68]"
         }
       >
         Stage 02

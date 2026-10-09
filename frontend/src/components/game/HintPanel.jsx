@@ -6,12 +6,12 @@ function HintPanel({
   }
 
   return (
-    <aside className="border border-[#514941] bg-[#191714] p-5">
-      <p className="text-[10px] uppercase tracking-[0.2em] text-[#8f2028]">
+    <aside className="border border-[#3d3d45] bg-[#09090c] p-5">
+      <p className="text-[10px] uppercase tracking-[0.2em] text-[#e50914]">
         Investigator Note
       </p>
 
-      <p className="mt-3 text-sm leading-6 text-[#aaa298]">
+      <p className="mt-3 text-sm leading-6 text-[#a2a2ad]">
         {text}
       </p>
     </aside>

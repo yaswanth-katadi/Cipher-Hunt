@@ -27,6 +27,15 @@ import LoadingScreen from "../components/common/LoadingScreen"
 import useRoundTimer from "../hooks/useRoundTimer"
 
 
+// Backend session statuses use values such as "round_2" while older
+// responses/UI code may use "ROUND_2". Normalize both formats.
+function normalizeStatus(value) {
+  return String(value ?? "")
+    .trim()
+    .toUpperCase()
+    .replace(/[\s-]+/g, "_")
+}
+
 function Round2() {
   const navigate = useNavigate()
 
@@ -67,7 +76,7 @@ function Round2() {
       session?.round_2_elapsed_ms || 0,
 
     active:
-      roundState?.status === "ACTIVE",
+      normalizeStatus(roundState?.status) === "ACTIVE",
   })
 
 
@@ -118,7 +127,7 @@ function Round2() {
       // -------------------------------------------------------
 
       if (
-        currentSession.status ===
+        normalizeStatus(currentSession.status) ===
         "NOT_STARTED"
       ) {
         navigate("/briefing", {
@@ -130,7 +139,7 @@ function Round2() {
 
 
       if (
-        currentSession.status ===
+        normalizeStatus(currentSession.status) ===
         "ROUND_1"
       ) {
         navigate("/round-1", {
@@ -142,10 +151,9 @@ function Round2() {
 
 
       if (
-        currentSession.status ===
-        "FINAL"
+        ["FINAL", "COMPLETED"].includes(normalizeStatus(currentSession.status))
       ) {
-        navigate("/final", {
+        navigate(currentSession.resume_path || "/final", {
           replace: true,
         })
 
@@ -165,7 +173,7 @@ function Round2() {
 
 
       if (
-        currentRound?.status ===
+        normalizeStatus(currentRound?.status) ===
         "SOLVED"
       ) {
         navigate("/final", {
@@ -188,12 +196,22 @@ function Round2() {
       }
 
 
-      if (
-        currentRound?.stage ===
-        "stage_2"
-      ) {
+      if (currentRound?.stage === "stage_2") {
+        // Stage 1 has already been verified. Restore the saved ordering so a
+        // refresh or a new login does not send the player back to Stage 1.
+        const savedNodes = Array.isArray(currentSession.round_2_selected_nodes)
+          ? currentSession.round_2_selected_nodes
+          : []
+        const savedOrder = Array.isArray(currentSession.round_2_selected_order)
+          ? currentSession.round_2_selected_order
+          : savedNodes
+
+        setSelectedNodes([])
+        setOrder(savedOrder.length === 4 ? savedOrder : savedNodes)
         setStage(2)
       } else {
+        setSelectedNodes([])
+        setOrder([])
         setStage(1)
       }
 

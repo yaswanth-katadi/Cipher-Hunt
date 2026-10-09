@@ -12,7 +12,7 @@ export default function Video() {
       <header className="border-b border-red-900/50 px-6 py-5 flex items-center justify-between">
         <div>
           <h1 className="text-xl font-black tracking-[0.25em]">
-            <span className="text-red-600">X</span> CIPHER HUNT
+            <span className="text-red-600"></span> CIPHER HUNT
           </h1>
           <p className="text-[10px] text-red-500 tracking-[0.3em]">
             THE INVESTIGATION

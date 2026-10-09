@@ -29,6 +29,15 @@ import LoadingScreen from "../components/common/LoadingScreen"
 import useRoundTimer from "../hooks/useRoundTimer"
 
 
+// Backend session statuses use values such as "round_1" while older
+// responses/UI code may use "ROUND_1". Normalize both formats.
+function normalizeStatus(value) {
+  return String(value ?? "")
+    .trim()
+    .toUpperCase()
+    .replace(/[\s-]+/g, "_")
+}
+
 function Round1() {
   const navigate = useNavigate()
 
@@ -99,7 +108,7 @@ function Round1() {
   const elapsedMs = useRoundTimer({
     startedAt: session?.round_1_started_at,
     elapsedMs: session?.round_1_elapsed_ms || 0,
-    active: roundState?.status === "ACTIVE",
+    active: normalizeStatus(roundState?.status) === "ACTIVE",
   })
 
 
@@ -179,7 +188,7 @@ function Round1() {
       // -----------------------------------------------------
 
       if (
-        currentSession.status === "ROUND_2"
+        normalizeStatus(currentSession.status) === "ROUND_2"
       ) {
         navigate("/round-2", {
           replace: true,
@@ -193,9 +202,9 @@ function Round1() {
       // -----------------------------------------------------
 
       if (
-        currentSession.status === "FINAL"
+        ["FINAL", "COMPLETED"].includes(normalizeStatus(currentSession.status))
       ) {
-        navigate("/final", {
+        navigate(currentSession.resume_path || "/final", {
           replace: true,
         })
         return
@@ -218,7 +227,7 @@ function Round1() {
 
       if (
         round?.stage === "completed" ||
-        round?.status === "SOLVED"
+        normalizeStatus(round?.status) === "SOLVED"
       ) {
         navigate("/round-2", {
           replace: true,
@@ -231,11 +240,22 @@ function Round1() {
       // RESTORE STAGE
       // -----------------------------------------------------
 
-      if (
-        round?.stage === "stage_2"
-      ) {
+      if (round?.stage === "stage_2") {
+        // Restore the nodes found in Stage 1 and the latest submitted order.
+        // These are returned by the backend from persisted Attempt records.
+        const savedNodes = Array.isArray(currentSession.round_1_selected_nodes)
+          ? currentSession.round_1_selected_nodes
+          : []
+        const savedOrder = Array.isArray(currentSession.round_1_selected_order)
+          ? currentSession.round_1_selected_order
+          : savedNodes
+
+        setSelectedNodes(savedNodes)
+        setOrder(savedOrder.length === 4 ? savedOrder : savedNodes)
         setStage(2)
       } else {
+        setSelectedNodes([])
+        setOrder([])
         setStage(1)
       }
 

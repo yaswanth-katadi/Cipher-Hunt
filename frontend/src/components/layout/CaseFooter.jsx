@@ -85,7 +85,6 @@ function CaseFooter() {
               <img
                 src={brand.logo}
                 alt={`${brand.name} logo`}
-                loading="lazy"
                 className="max-h-full max-w-full object-contain"
               />
             </a>

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const brands = [
   {
     name: "SAEINDIA",
-    logo: "sae-logo.png",
+    logo: "/sae-logo.png",
     website: "https://saenitd.in",
     socials: [
       {
@@ -31,7 +31,7 @@ const brands = [
   },
   {
     name: "AAROHAN",
-    logo: "aarohan.png",
+    logo: "/aarohan.png",
     website: "https://www.arhn.in/",
     socials: [
       {
